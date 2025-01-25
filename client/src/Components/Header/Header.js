@@ -18,9 +18,9 @@ function Header()
    backgroundColor:" rgba(47, 0, 255, 0.47)",
 
    //Padding and width
-   paddingTop:"2.5%",
-   paddingBottom:"2.5%",
-   width: "100%",
+   paddingTop:"5vh",
+   paddingBottom:"5vh",
+   width: "100vw",
 
 
    //Flex
@@ -35,32 +35,39 @@ function Header()
  //The style of all the links
  const link=
  {
-    textDecoration:'none',
-    color:'black',
-    marginRight:"2vw",
-    marginLeft:"2vw",
-    fontSize:"100%",
+  textDecoration:'none',
+  color:'black',
+  marginRight:"2vw",
+  marginLeft:"2vw",
+  fontSize:"100%",
      
   
  };
  const signin =
  {
-   backgroundColor:" rgba(148, 149, 255, 1)",
-   marginRight:"0.5%",
-   marginLeft:"2%",
-   paddingLeft:"1%",
-   paddingRight:"1%",
-   paddingTop:"0.8%",
-   paddingBottom:"0.8%",
+  
 
-   //Border
-   borderStyle:"solid",
+
+  backgroundColor:" rgba(148, 149, 255, 1)",
+  marginRight:"0.5vw",
+  marginLeft:"2vw",
+  paddingLeft:"1.25vw",
+  paddingRight:"1.25vw",
+  paddingTop:"1.25vh",
+  paddingBottom:"1.25vh",
+
+  //Border
+  borderStyle:"solid",
  
-   borderColor:"rgba(118, 118, 118, 1)",
-   borderWidth:"1px",
-   boxShadow: "rgba(0, 0, 0, 0.25) 0px 3px 8px",
-   //Scaling based on hover
-   scale: isSignInHover? "1.1":"1.0"
+  //Font
+  textDecoration:'none',
+  color:'black',  
+
+  borderColor:"rgba(118, 118, 118, 1)",
+  borderWidth:"1px",
+  boxShadow: "rgba(0, 0, 0, 0.25) 0px 3px 8px",
+  //Scaling based on hover
+  scale: isSignInHover? "1.1":"1.0"
  }
  
  const register =
@@ -69,15 +76,16 @@ function Header()
    backgroundColor:" rgba(96, 0, 230, 1)",
 
    //Positioning
-   marginRight:"4%",
-   marginLeft:"2%",
-   paddingLeft:"1%",
-   paddingRight:"1%",
-   paddingTop:"0.8%",
-   paddingBottom:"0.8%",
+   marginRight:"4vw",
+   marginLeft:"2vw",
+   paddingLeft:"1.25vw",
+   paddingRight:"1.25vw",
+   paddingTop:"1.25vh",
+   paddingBottom:"1.25vh",
 
    //Font color
    color:"rgba(255,255,255,1)",
+   textDecoration:'none',
 
    //Border
    borderStyle:"solid",
@@ -94,30 +102,37 @@ function Header()
  return (
    <>
    <header style = {headerStyle}>
-     <div><a href = "/" style = {link}>Home</a></div>
+    <div><a href = "/" style = {link}>Home</a></div>
      
-     <div><a href = "/browse" style = {link}>Browse</a></div>
+    <div><a href = "/browse" style = {link}>Browse</a></div>
      
-     <div><a href = "/upload" style = {link}>Upload</a></div>
+    <div><a href = "/upload" style = {link}>Upload</a></div>
      
-     <div><a href = "/edit" style = {link}>Edit</a></div>
+    <div><a href = "/edit" style = {link}>Edit</a></div>
      
-     <div style ={signin} 
-     onMouseEnter={()=>setSignInHover(true)}
-     onMouseLeave={()=>setSignInHover(false)}
-     >
-      Sign in
-      
+    
+    <a href  = "/signin" style = {{textDecoration:"none"}}>
+      <div
+      style ={signin} 
+      onMouseEnter={()=>setSignInHover(true)}
+      onMouseLeave={()=>setSignInHover(false)}
+      >
+        Sign in
       </div>
 
+    </a>
+    
 
-      <div style ={register} 
-     onMouseEnter={()=>setRegisterHover(true)}
-     onMouseLeave={()=>setRegisterHover(false)}
-     >
-      Register
-      
+    <a href  = "/register" style = {{textDecoration:"none"}}>
+      <div
+      style ={register} 
+      onMouseEnter={()=>setRegisterHover(true)}
+      onMouseLeave={()=>setRegisterHover(false)}
+      >
+        Register
       </div>
+
+    </a>
    </header>
 
    </>  

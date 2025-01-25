@@ -9,6 +9,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Layout from './Pages/Layout';
 import Home from './Pages/Home';
 import Browse from './Pages/Browse';
+import "./index.css"
 
 export default function App()
 {
