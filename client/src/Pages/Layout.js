@@ -7,7 +7,10 @@ export default function Layout()
         <>
         <Header/> 
        
-        <Outlet/> 
+        {/*Additional content which changes from page to page*/}
+        <div>
+        <Outlet/>
+        </div> 
         </>
     )
 }
