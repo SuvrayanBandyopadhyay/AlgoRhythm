@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import { Outlet } from 'react-router-dom';
 
 function Header()
 {
@@ -13,10 +12,11 @@ function Header()
   const headerStyle = 
   {
     //To set the position as sticky
-    position: "sticky",
+    position: "fixed",
+    top:"0",
    
     //Setting background color
-    backgroundColor:" rgba(47, 0, 255, 0.47)",
+    backgroundColor:" rgba(157, 135, 255, 1)",
 
     //Padding and width
     paddingTop:"5vh",
@@ -31,6 +31,8 @@ function Header()
     alignItems: "center",
     //Font family
     fontFamily:"Arial",
+
+    zIndex:"999"
   };
 
   //The style of all the links

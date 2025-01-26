@@ -1,16 +1,25 @@
+import AudioCard from "../Components/Header/AudioCard"
+import Aimage from "./A.png"
 //Definition for the home page
 function Home()
 {
+    const centralText = 
+    {
+        backgroundColor: "rgba(245, 245, 245, 1)",
+        paddingTop:"35vh",
+        paddingBottom:"35vh"
+    }
     //For the bold text container
     const boldContainer =
     {
-    
-        marginTop:"25vh",
+
+        
         display:"flex",
         justifyContent:"center",
         fontFamily:"Arial",
         fontWeight:"550",
         fontSize:"6vw",
+        
     }
 
     //Text definitions
@@ -35,27 +44,93 @@ function Home()
         textAlign:"Center",
         color:"rgba(117, 117, 117, 1)",
         fontSize:"3vw",
-        marginTop:"3vh",
+        marginTop:"5vh",
 
         marginLeft:"22vw",
         
         marginRight:"22vw",
     }
 
+    const subtitle2 = 
+    {
+ 
+        color:"rgba(117, 117, 117, 1)",
+        fontSize:"2vw",
+        marginLeft:"5vw",
+        marginTop:"1vh",
+        
+    }
+
+
+    //Text for the trending section
+    const trendingText=
+    {
+        fontFamily:"Arial",
+        color:"black",
+        
+        marginLeft:"5vw",
+        fontSize:"2vw",
+        marginTop:"8vh",
+        fontWeight:"100",
+    }
+
+    //Container for trending songs
+    const trendingContainer =
+    {
+    //Flex
+    display: "flex",
+    flexDirection: "row",
+    flexWrap:"wrap",
+    marginLeft:"2.5%",
+    marginRight:"2.5%"
+    }
+
+
+    {/*To be loaded from the database*/}
+    const trending = [
+        {image:Aimage,text:"A song",artist:"Random"},
+        {image:Aimage,text:"Another song",artist:"Unknown"},
+        {image:Aimage,text:"Some song",artist:"Unknown"},
+        {image:Aimage,text:"This is a song",artist:"Person"},
+        {image:Aimage,text:"Is this a song",artist:"Random"},
+        {image:Aimage,text:"something ",artist:"Random"},
+        {image:Aimage,text:"song",artist:"Random"},
+        {image:Aimage,text:"song",artist:"Random"},
+   
+    ]
+
     return(
         <>
-        <div style={boldContainer}>
-            <div style = {boldText1}>
-                AUDIO
+        {/*The central decorative text */}
+        <div style = {centralText}>
+            {/* The starting text in the middle */}
+            <div style={boldContainer}>
+                <div style = {boldText1}>
+                    AUDIO
+                </div>
+                <div style = {boldText2}>
+                    ANYWHERE
+                </div>
             </div>
-            <div style = {boldText2}>
-                ANYWHERE
-            </div>
-        </div>
 
-        <div style={subtitle1}>
-            Seamlessly download, edit and share open source audio
+            <div style={subtitle1}>
+                Seamlessly download, edit and share open source audio
+            </div>
         </div>
+            
+        {/*The trending page*/}
+        <div style = {trendingText}>
+            Trending 
+        </div>
+        <div style = {subtitle2}>
+            Hear what everyone's listening
+        </div>
+        
+        {/*Print trending*/}
+        <div style ={trendingContainer}>
+            {trending.map((item)=><AudioCard info = {item}/>)}
+        </div>
+        
         </>
     )
 }
