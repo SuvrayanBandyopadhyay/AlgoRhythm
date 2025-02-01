@@ -1,8 +1,10 @@
 import AudioCard from "../Components/Header/AudioCard"
 import Aimage from "./A.png"
+import InfiniteSideScroll from "../Components/Header/InfiniteSideScroll"
+
 //Definition for the home page
 function Home()
-{
+{   
     const centralText = 
     {
         backgroundColor: "rgba(245, 245, 245, 1)",
@@ -29,7 +31,6 @@ function Home()
         
         
     }
-   
     
     const boldText2 =
     {
@@ -85,6 +86,14 @@ function Home()
     marginRight:"2.5%"
     }
 
+    const MovieCard = {
+        width: "200px",
+        height: "100px",
+        backgroundColor: "green",
+        marginTop: "100px",
+        marginLeft: "100px"
+    }
+
 
     {/*To be loaded from the database*/}
     const trending = [
@@ -98,6 +107,7 @@ function Home()
         {image:Aimage,text:"song",artist:"Random"},
    
     ]
+
 
     return(
         <>
@@ -125,12 +135,12 @@ function Home()
         <div style = {subtitle2}>
             Hear what everyone's listening
         </div>
+        <InfiniteSideScroll/>
         
         {/*Print trending*/}
         <div style ={trendingContainer}>
             {trending.map((item)=><AudioCard info = {item}/>)}
         </div>
-        
         </>
     )
 }
