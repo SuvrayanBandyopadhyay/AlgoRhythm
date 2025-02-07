@@ -1,6 +1,6 @@
-import AudioCard from "../Components/Header/AudioCard"
+import AudioCard from "../Components/AudioCard/AudioCard"
 import Aimage from "./A.png"
-import InfiniteSideScroll from "../Components/Header/InfiniteSideScroll"
+import InfiniteSideScroll from "../Components/InfiniteSideScroll/InfiniteSideScroll"
 
 //Definition for the home page
 function Home()

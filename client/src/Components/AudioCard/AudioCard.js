@@ -6,21 +6,26 @@ function AudioCard(props)
     const [hover,setHover]= useState("")
     const card=
     {
+        borderRadius:"2.5vh",
         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
         width:"20%",
         height:"15%",
         maxHeight:"40vh",
-        marginTop:"5vh",
+        minWidth:"10vh",
+
+        marginTop:"10vh",
         paddingBottom:"2.5%",
         marginRight:"2.5%",
         marginLeft:"2.5%",
         scale: hover? "1.05":"1.0"
+
     }
 
     const cardImage=
     {
         width:"100%",
         height:"30vh",
+       
 
     }
 
