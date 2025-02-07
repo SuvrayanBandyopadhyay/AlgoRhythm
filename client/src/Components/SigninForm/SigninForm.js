@@ -25,7 +25,7 @@ function SigninForm()
         fontFamily:"Arial",
         fontSize:"400%",
         display:"flex",
-        marginTop:"50%",
+        marginTop:"45vh",
         justifyContent:"Center",
         fontWeight:"Bold",
 
@@ -108,7 +108,7 @@ function SigninForm()
     <div style = {formContainer}>
     <div style={form}>
     
-        <form>
+        <form action="http://localhost:5000/signincheck" method="POST">
             <div style={inputContainer} >
                 <label style={label}>Username </label>
                 <br/>
