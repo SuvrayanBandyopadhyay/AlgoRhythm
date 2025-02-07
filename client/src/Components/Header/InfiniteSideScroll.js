@@ -18,7 +18,7 @@ const InfiniteSideScroll = () => {
       if (inView) {
         loadMoreItems();
       }
-    }, [inView, loadMoreItems]); // Dependency array
+    }, [inView, loadMoreItems]); // Dependency array 
   
     return (
     <div style={{paddingLeft:"60px"}}>
