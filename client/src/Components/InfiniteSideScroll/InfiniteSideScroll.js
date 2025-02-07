@@ -13,7 +13,12 @@ const InfiniteSideScroll = () => {
       setItems((prev) => [...prev, ...Array.from({ length: 10 }, (_, i) => prev.length + i)]);
     }, []);
   
-    if (inView) loadMoreItems();
+    // Run loadMoreItems ONLY when inView changes
+    useEffect(() => {
+      if (inView) {
+        loadMoreItems();
+      }
+    }, [inView, loadMoreItems]); // Dependency array 
   
     return (
     <div style={{paddingLeft:"60px"}}>

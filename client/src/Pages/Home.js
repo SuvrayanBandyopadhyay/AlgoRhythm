@@ -92,7 +92,7 @@ function Home()
         backgroundColor: "green",
         marginTop: "100px",
         marginLeft: "100px"
-    }
+    } 
 
 
     {/*To be loaded from the database*/}
