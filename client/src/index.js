@@ -10,6 +10,7 @@ import Layout from './Pages/Layout';
 import Home from './Pages/Home';
 import Browse from './Pages/Browse';
 import "./index.css"
+import Signin from './Pages/Signin';
 
 export default function App()
 {
@@ -20,6 +21,8 @@ export default function App()
             <Route index element = {<Home/>}/>
             <Route path = "/browse" element = {<Browse/>}/>
           </Route>
+
+          <Route path ="/signin" element = {<Signin/>}></Route>
       </Routes>
     </BrowserRouter>
   )

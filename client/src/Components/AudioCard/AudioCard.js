@@ -17,11 +17,6 @@ function AudioCard(props)
         paddingBottom:"2.5%",
         marginRight:"2.5%",
         marginLeft:"2.5%",
-<<<<<<< HEAD
-        
-        
-=======
->>>>>>> e15df091161b9141325810d80331c6e7b5d1926c
         scale: hover? "1.05":"1.0"
 
     }
