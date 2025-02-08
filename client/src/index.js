@@ -10,6 +10,7 @@ import Home from './Pages/Home';
 import "./index.css"
 import Signin from './Pages/Signin';
 import Register from './Pages/Register';
+import SongUpload from './Pages/SongUpload';
 
 
 export default function App()
@@ -24,6 +25,7 @@ export default function App()
           {/*Sign in and register */}
           <Route path ="/signin" element = {<Signin/>}></Route>
           <Route path ="/register" element = {<Register/>}></Route>
+          <Route path ="/songupload" element = {<SongUpload/>}></Route>
       </Routes>
     </BrowserRouter>
   )

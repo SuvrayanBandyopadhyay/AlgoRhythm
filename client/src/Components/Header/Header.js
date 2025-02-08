@@ -110,7 +110,7 @@ function Header()
      
       <div><a href = "/browse" style = {link}>Browse</a></div>
      
-      <div><a href = "/upload" style = {link}>Upload</a></div>
+      <div><a href = "/songupload" style = {link}>Upload</a></div>
      
       <div><a href = "/edit" style = {link}>Edit</a></div>
      
