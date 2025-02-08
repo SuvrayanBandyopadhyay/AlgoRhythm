@@ -28,6 +28,11 @@ app.post('/signincheck',function(req,res)
     res.send(("Recieved your request:: username:"+req.body["uname"]+" password "+req.body["pass"]));
 })
 
+app.post('/registercheck',function(req,res)
+{
+    console.log(req.body);
+    res.send(("New user tried to register"));
+})
 
 app.listen(5000)
 

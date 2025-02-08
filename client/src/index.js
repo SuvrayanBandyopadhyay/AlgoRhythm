@@ -9,6 +9,8 @@ import Layout from './Pages/Layout';
 import Home from './Pages/Home';
 import "./index.css"
 import Signin from './Pages/Signin';
+import Register from './Pages/Register';
+
 
 export default function App()
 {
@@ -19,7 +21,9 @@ export default function App()
             <Route index element = {<Home/>}/>
           </Route>
 
+          {/*Sign in and register */}
           <Route path ="/signin" element = {<Signin/>}></Route>
+          <Route path ="/register" element = {<Register/>}></Route>
       </Routes>
     </BrowserRouter>
   )
