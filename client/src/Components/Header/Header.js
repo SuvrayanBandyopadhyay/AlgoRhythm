@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import SearchBar from './SearchBar';
 
 function Header()
 {
@@ -103,6 +104,8 @@ function Header()
   return (
     <>
     <header style = {headerStyle}>
+      <SearchBar />
+
       <div><a href = "/" style = {link}>Home</a></div>
      
       <div><a href = "/browse" style = {link}>Browse</a></div>

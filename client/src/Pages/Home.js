@@ -133,7 +133,7 @@ function Home()
             Trending 
         </div>
         <div style = {subtitle2}>
-            Hear what everyone's listening
+            Hear what others are jamming to
         </div>
         <InfiniteSideScroll/>
         
