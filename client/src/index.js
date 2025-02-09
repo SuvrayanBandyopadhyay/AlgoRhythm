@@ -11,7 +11,7 @@ import "./index.css"
 import Signin from './Pages/Signin';
 import Register from './Pages/Register';
 import SongUpload from './Pages/SongUpload';
-
+import Search from './Pages/Search'
 
 export default function App()
 {
@@ -20,6 +20,7 @@ export default function App()
       <Routes>
           <Route path = "/" element = {<Layout/>}>
             <Route index element = {<Home/>}/>
+            <Route path='search' element = {<Search/>}/>
           </Route>
 
           {/*Sign in and register */}

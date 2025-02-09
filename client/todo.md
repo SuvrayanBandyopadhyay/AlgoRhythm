@@ -1,3 +1,7 @@
+# db schema
+
+- lengths of character attributes
+
 # pages
 
 ## topbar
@@ -26,7 +30,7 @@
 
 - song list view
     - duration
-    - image
+    - image?
     - name
     - artist
 

@@ -20,10 +20,8 @@ function Header()
     backgroundColor:" rgba(157, 135, 255, 1)",
 
     //Padding and width
-    paddingTop:"5vh",
-    paddingBottom:"5vh",
     width: "100vw",
-
+    height: "10vh",
 
     //Flex
     display: "flex",

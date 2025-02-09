@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import './SearchBar.css'; // Import the CSS file
+import './SearchBar.css';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
-  const [value, setValue] = useState('');
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setQuery(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Search submitted:', value);
+    if (!query.trim()) return;
+  
+    navigate(`/search?q=${encodeURIComponent(query)}`);
   };
 
   return (
     <form onSubmit={handleSubmit} className="search-container">
       <input
         type="text"
-        value={value}
+        value={query}
         onChange={handleChange}
         placeholder="Search"
         className="search-box"
