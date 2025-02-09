@@ -1,26 +1,45 @@
-//The backend of our code.. 
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcrypt")
 const multer = require('multer');
 const path = require("path");
+const searchSongs = require("./database");
+const dotenv = require('dotenv');
+dotenv.config();
 
-//Our backend application
 app = express();
 
-//Allow cross origin requests
-app.use(cors(
-    {
-        origin:"'http://localhost:3000",
-        methods: ['GET','POST'],
-        credentials:true
+// DEBUG: Allow cross origin requests
+app.use(cors({
+    origin:"http://localhost:3000",
+    methods: ['GET','POST'],
+    credentials: true,
+}))
 
-    }))
-
-//Middleware ot parse URL encoded data
-app.use(express.urlencoded({extended:true}));
+// Middleware to parse URL encoded data
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.get('/search', async (req, res) => {
+    const query = req.query.q;
+
+    if (!query) {
+        return res.status(400).json({ error: 'Missing search query' });
+    }
+
+    res.json({ 
+        message: `You searched for: ${query}`,
+        results: await searchSongs(query, 0),
+    });
+});
+
+// Serve static files from the 'public' directory
+app.use('/covers', express.static(path.join(__dirname, 'public', 'covers')));
+
+// Handle missing images (optional)
+app.use('/covers', (req, res, next) => {
+    res.status(404).send('Cover image not found');
+});
 
 //POST
 app.post('/signincheck',function(req,res)
@@ -90,7 +109,4 @@ app.post('/songupload', upload.single('file'), (req, res) => {
     }
 });
 
-app.listen(5000)
-
-
-
+app.listen(process.env.SERVER_PORT)
