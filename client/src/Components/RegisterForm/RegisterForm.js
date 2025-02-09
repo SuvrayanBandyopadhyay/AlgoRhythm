@@ -1,149 +1,113 @@
-import React,{useState} from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './RegisterForm.css'
 
+export default function RegisterForm() {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-function RegisterForm()
-{
-    const [user,setUser]= useState("")
-    
+  const [errors, setErrors] = useState({});
 
-    const container = 
-    {
-        display: "flex",
-        height:"100vh"
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+  };
 
+  const validateForm = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!formData.username.trim()) newErrors.username = 'Name required';
+    if (!emailRegex.test(formData.email)) newErrors.email = 'Invalid email';
+    if (formData.password.length < 8) newErrors.password = 'Password too short';
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords mismatch';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log('Registration data:', formData);
+      // Submission logic
     }
-    //Left design
+  };
 
-    const leftDesign = {
-        background: " rgba(157, 135, 255, 1)",
-        width: "40%",
-        minWidth: "250px",
-    };
-    //Signin text
-    const registerText=
-    {
-        fontFamily:"Arial",
-        fontSize:"300%",
-        display:"flex",
-        marginTop:"45vh",
-        justifyContent:"Center",
-        fontWeight:"Bold",
+  return (
+    <div className="container">
+      <div className="left-design">
+        <div className="register-text">CREATE ACCOUNT</div>
+      </div>
 
-        //Font outline
-        
-    }
+      <div className="form-container">
+        <div className="form">
+          <form onSubmit={handleSubmit}>
+            <div className="input-container">
+              <label className="label">Username</label>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                className="input-field"
+              />
+              {errors.username && <div className="error-message">{errors.username}</div>}
+            </div>
 
-    //Form container
-    const formContainer = 
-    {
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        width:"60%",
-        minWidth:"300px"
-    }
+            <div className="input-container">
+              <label className="label">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="input-field"
+              />
+              {errors.email && <div className="error-message">{errors.email}</div>}
+            </div>
 
-    //Overall form properties
-    const form=
-    {
+            <div className="input-container">
+              <label className="label">Password</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="input-field"
+              />
+              {errors.password && <div className="error-message">{errors.password}</div>}
+            </div>
 
-        display: "block",
-        background: "rgb(245, 245, 245)",
-        padding: "5%",
-        width: "80%", // Relative width for better scaling
-        maxWidth: "400px", // Prevents it from getting too big
-        borderRadius: "5%",
-        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-        minWidth: "250px",
+            <div className="input-container">
+              <label className="label">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="input-field"
+              />
+              {errors.confirmPassword && (
+                <div className="error-message">{errors.confirmPassword}</div>
+              )}
+            </div>
 
+            <button type="submit" className="submit-button">
+              Register
+            </button>
+          </form>
 
-    }
-    //Each input box
-    const inputContainer=
-    {
-        paddingTop:"8%",
-        paddingBottom:"4%",
-    }
-    
-    //Label formatting
-    const label =
-    {
-        color:"rgba(96, 0, 230, 1)",
-        fontWeight:"bold",
-        fontFamily:"Arial"
-    }
-
-    //Field formatting
-    const field ={
-        marginTop:"1%",
-        width:"80%",
-        height: "30px",
-        
-        border: "1px solid rgba(0, 0, 0, 0.2)"
-    }
-    
-    //The submit button
-    const submit = {
-        marginTop: "10px",
-        cursor: "pointer",
-        fontSize: "100%",
-        background: " rgba(96, 0, 230, 1)",
-        border: "1px solid rgba(96, 0, 230, 1)",
-        color: "#fff",
-        padding: "3% 3%",
-        paddingBottom:"3%",
-        marginBottom:"5%"
-    
-    }
-    
-
-    return(
-    <>
-    <div style = {container}>
-    <div style = {leftDesign}>
-        <div style = {registerText}>
-        REGISTER
+          <div className="auth-link">
+            Already have an account? <Link to="/signin" className="link">Sign in</Link>
+          </div>
         </div>
+      </div>
     </div>
-    <div style = {formContainer}>
-    <div style={form}>
-    
-        <form action="http://localhost:5000/registercheck" method="POST">
-            <div style={inputContainer} >
-                <label style={label}>Username </label>
-                <br/>
-                <input type="text" name="uname" required style={field}/>
-            </div>
-            <div style={inputContainer}>
-                <label style={label}>Password  </label>
-                <br/>
-                <input type="password" name="pass" required style={field}/>
-            </div>
-
-            <div style={inputContainer}>
-                <label style={label}>Confirm Password </label>
-                <br/>
-                <input type="password" name="cpass" required style={field}/>
-            </div>
-
-            <div style={inputContainer}>
-                <label style={label}>Email</label>
-                <br/>
-                <input type="text" name="email" required style={field}/>
-            </div>
-       
-            <div className="button-container">
-                <input type="submit"  style={submit}/>
-            </div>
-        </form>
-    </div>
-    </div>
-    </div>
-    
-        
-    
-    </>)
-
+  );
 }
-
-export default RegisterForm
