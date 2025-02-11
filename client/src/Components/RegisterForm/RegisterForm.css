@@ -6,7 +6,9 @@
 
 .left-design {
   flex: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  background: rgba(157, 135, 255, 1);
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +16,7 @@
 }
 
 .register-text {
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 3rem;
   font-weight: bold;
   text-align: center;
