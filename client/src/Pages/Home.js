@@ -1,64 +1,60 @@
-import AudioCard from "../Components/Header/AudioCard"
+import AudioCard from "../Components/AudioCard/AudioCard"
 import Aimage from "./A.png"
+import InfiniteSideScroll from "../Components/InfiniteSideScroll/InfiniteSideScroll"
+
 //Definition for the home page
 function Home()
-{
+{   
     const centralText = 
     {
+        height: "85vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+
         backgroundColor: "rgba(245, 245, 245, 1)",
-        paddingTop:"35vh",
-        paddingBottom:"35vh"
     }
     //For the bold text container
     const boldContainer =
     {
-
-        
         display:"flex",
         justifyContent:"center",
         fontFamily:"Arial",
         fontWeight:"550",
         fontSize:"6vw",
-        
     }
 
     //Text definitions
     const boldText1 =
     {
         color:"rgba(96, 0, 230, 1)",
-        
-        
     }
-   
     
     const boldText2 =
     {
         color:"rgba(0, 0, 0, 1)",
         marginLeft:"2vw",
-        
     }
 
     const subtitle1 = 
     {
+        marginTop:"5vh",
+        marginLeft:"22vw",
+        marginRight:"22vw",
         wordWrap:"break-word",
         textAlign:"Center",
-        color:"rgba(117, 117, 117, 1)",
         fontSize:"3vw",
-        marginTop:"5vh",
 
-        marginLeft:"22vw",
-        
-        marginRight:"22vw",
+        color:"rgba(117, 117, 117, 1)",
     }
 
     const subtitle2 = 
     {
- 
         color:"rgba(117, 117, 117, 1)",
         fontSize:"2vw",
         marginLeft:"5vw",
         marginTop:"1vh",
-        
     }
 
 
@@ -77,13 +73,20 @@ function Home()
     //Container for trending songs
     const trendingContainer =
     {
-    //Flex
-    display: "flex",
-    flexDirection: "row",
-    flexWrap:"wrap",
-    marginLeft:"2.5%",
-    marginRight:"2.5%"
+        display: "flex",
+        flexDirection: "row",
+        flexWrap:"wrap",
+        marginLeft:"2.5%",
+        marginRight:"2.5%"
     }
+
+    const MovieCard = {
+        width: "200px",
+        height: "100px",
+        backgroundColor: "green",
+        marginTop: "100px",
+        marginLeft: "100px"
+    } 
 
 
     {/*To be loaded from the database*/}
@@ -96,7 +99,6 @@ function Home()
         {image:Aimage,text:"something ",artist:"Random"},
         {image:Aimage,text:"song",artist:"Random"},
         {image:Aimage,text:"song",artist:"Random"},
-   
     ]
 
     return(
@@ -112,6 +114,7 @@ function Home()
                     ANYWHERE
                 </div>
             </div>
+            <br/>
 
             <div style={subtitle1}>
                 Seamlessly download, edit and share open source audio
@@ -123,14 +126,14 @@ function Home()
             Trending 
         </div>
         <div style = {subtitle2}>
-            Hear what everyone's listening
+            Hear what others are jamming to
         </div>
+        <InfiniteSideScroll/>
         
         {/*Print trending*/}
         <div style ={trendingContainer}>
             {trending.map((item)=><AudioCard info = {item}/>)}
         </div>
-        
         </>
     )
 }

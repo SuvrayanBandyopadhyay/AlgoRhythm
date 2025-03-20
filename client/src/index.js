@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
 
 //Import router functionality
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
@@ -8,8 +7,11 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 //Import pages
 import Layout from './Pages/Layout';
 import Home from './Pages/Home';
-import Browse from './Pages/Browse';
 import "./index.css"
+import Signin from './Pages/Signin';
+import Register from './Pages/Register';
+import SongUpload from './Pages/SongUpload';
+import Search from './Pages/Search'
 
 export default function App()
 {
@@ -18,8 +20,13 @@ export default function App()
       <Routes>
           <Route path = "/" element = {<Layout/>}>
             <Route index element = {<Home/>}/>
-            <Route path = "/browse" element = {<Browse/>}/>
+            <Route path='search' element = {<Search/>}/>
           </Route>
+
+          {/*Sign in and register */}
+          <Route path ="/signin" element = {<Signin/>}></Route>
+          <Route path ="/register" element = {<Register/>}></Route>
+          <Route path ="/songupload" element = {<SongUpload/>}></Route>
       </Routes>
     </BrowserRouter>
   )

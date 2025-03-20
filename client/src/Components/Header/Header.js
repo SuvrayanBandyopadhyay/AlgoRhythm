@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import SearchBar from './SearchBar';
 
 function Header()
 {
@@ -19,10 +20,8 @@ function Header()
     backgroundColor:" rgba(157, 135, 255, 1)",
 
     //Padding and width
-    paddingTop:"5vh",
-    paddingBottom:"5vh",
     width: "100vw",
-
+    height: "10vh",
 
     //Flex
     display: "flex",
@@ -103,11 +102,13 @@ function Header()
   return (
     <>
     <header style = {headerStyle}>
+      <SearchBar />
+
       <div><a href = "/" style = {link}>Home</a></div>
      
       <div><a href = "/browse" style = {link}>Browse</a></div>
      
-      <div><a href = "/upload" style = {link}>Upload</a></div>
+      <div><a href = "/songupload" style = {link}>Upload</a></div>
      
       <div><a href = "/edit" style = {link}>Edit</a></div>
      
