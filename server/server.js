@@ -33,6 +33,8 @@ app.use(session({
     expires: new Date(Date.now() + 2*60*60*1000),//24 hrs
 }))
 
+
+//# Search
 app.get('/search', async (req, res) => {
     const query = req.query.q;
 
@@ -54,6 +56,8 @@ app.use('/covers', (req, res, next) => {
     res.status(404).send('Cover image not found');
 });
 
+
+//# Sign-in, Register and authentication check
 //POST
 app.post('/signincheck',async function(req,res)
 {
@@ -73,12 +77,14 @@ app.post('/signincheck',async function(req,res)
             req.session.user = {};
         }
 
-        //Dummy variables (to be changed with actual database)
+        //Set user session
         req.session.user.id = val;
         req.session.user.name = username;
+    
 
         //If its valid
-        res.send("VALID");
+       
+        res.redirect('http://localhost:3000/');
     }
     else   
         res.send("INVALID");
@@ -105,6 +111,8 @@ app.get('/auth/check',function(req,res)
 })
 
 
+
+//# Song Upload
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // Files will be uploaded to 'uploads' directory
