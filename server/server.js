@@ -4,12 +4,16 @@ const bcrypt = require("bcrypt")
 const multer = require('multer');
 const path = require("path");
 const searchSongs = require("./database");
+const checkLogin = require("./checkLogin")
 const dotenv = require('dotenv');
+//For sessions
+const session = require("express-session")
+
 dotenv.config();
 
 app = express();
 
-// DEBUG: Allow cross origin requests
+// Allow cross origin requests
 app.use(cors({
     origin:"http://localhost:3000",
     methods: ['GET','POST'],
@@ -19,6 +23,15 @@ app.use(cors({
 // Middleware to parse URL encoded data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//Session middleware
+app.use(session({
+    name:'session',
+    secret:"Secret_key",
+    resave:false,
+    saveUninitialized: true,
+    expires: new Date(Date.now() + 2*60*60*1000),//24 hrs
+}))
 
 app.get('/search', async (req, res) => {
     const query = req.query.q;
@@ -42,16 +55,53 @@ app.use('/covers', (req, res, next) => {
 });
 
 //POST
-app.post('/signincheck',function(req,res)
+app.post('/signincheck',async function(req,res)
 {
-    console.log(req.body);
-    res.send(("Recieved your request:: username:"+req.body["uname"]+" password "+req.body["pass"]));
+    //console.log(req.body);
+    //res.send(("Recieved your request:: username:"+req.body["uname"]+" password "+req.body["pass"]));
+    username = req.body["uname"];
+    password = req.body["pass"];
+
+    val = await checkLogin(username,password);
+    console.log("Val")
+    console.log(val)
+    if(val !=-1)
+    { 
+        //If session is not defined
+        if(!req.session.user)
+        {
+            req.session.user = {};
+        }
+
+        //Dummy variables (to be changed with actual database)
+        req.session.user.id = val;
+        req.session.user.name = username;
+
+        //If its valid
+        res.send("VALID");
+    }
+    else   
+        res.send("INVALID");
 })
 
 app.post('/registercheck',function(req,res)
 {
     console.log(req.body);
     res.send(("New user tried to register"));
+})
+
+//Check authentication
+app.get('/auth/check',function(req,res)
+{
+    if (req.session.user)
+    {
+        console.log(req.session.user.id)
+        res.json({authenitcated:true,user:req.session.user.name,id:req.session.user.id});
+    }
+    else
+    {
+        res.send({authenitcated:false});
+    }
 })
 
 
