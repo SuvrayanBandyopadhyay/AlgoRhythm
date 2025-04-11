@@ -1,13 +1,17 @@
 import React,{useState} from 'react';
 import SearchBar from './SearchBar';
 
-function Header()
+function Header({ darkMode, setDarkMode })
 {
 
+  
   //To check if we are hovering on sign-in button or not
   const [isSignInHover,setSignInHover] = useState("")
   //To check if we are hovering on register button or not
   const [isRegisterHover,setRegisterHover] = useState("")
+
+   // Toggle handler
+   const toggleDarkMode = () => setDarkMode(!darkMode);
 
  //The header style
   const headerStyle = 
@@ -17,7 +21,7 @@ function Header()
     top:"0",
    
     //Setting background color
-    backgroundColor:" rgba(157, 135, 255, 1)",
+    backgroundColor:  "rgba(157, 135, 255, 1)",
 
     //Padding and width
     width: "100vw",
@@ -31,14 +35,15 @@ function Header()
     //Font family
     fontFamily:"Arial",
 
-    zIndex:"999"
+    zIndex:"999",
+    color:  "black",
   };
 
   //The style of all the links
   const link=
   {
     textDecoration:'none',
-    color:'black',
+    color:  'black',
     marginRight:"2vw",
     marginLeft:"2vw",
     fontSize:"120%",
@@ -46,7 +51,7 @@ function Header()
   const signin =
   {
   
-    backgroundColor:" rgba(148, 149, 255, 1)",
+    backgroundColor:  " rgba(148, 149, 255, 1)",
     marginRight:"0.5vw",
     marginLeft:"2vw",
     paddingLeft:"1.25vw",
@@ -59,23 +64,24 @@ function Header()
  
     //Font
     textDecoration:'none',
-    color:'black',
+    color:  'black',
     fontSize:"120%",  
 
     borderColor:"rgba(118, 118, 118, 1)",
     borderWidth:"1px",
     boxShadow: "rgba(0, 0, 0, 0.25) 0px 3px 8px",
     //Scaling based on hover
-    scale: isSignInHover? "1.1":"1.0"
+    scale: isSignInHover? "1.1":"1.0",
+    transition: "transform 0.2s ease",
   }
  
   const register =
   {
     //Background color
-    backgroundColor:" rgba(96, 0, 230, 1)",
+    backgroundColor: " rgba(96, 0, 230, 1)",
 
     //Positioning
-    marginRight:"4vw",
+    marginRight:"vw",
     marginLeft:"2vw",
     paddingLeft:"1.25vw",
     paddingRight:"1.25vw",
@@ -94,8 +100,30 @@ function Header()
     borderWidth:"1px",
     boxShadow: "rgba(0, 0, 0, 0.25) 0px 3px 8px",
     //Scaling based on hover
-    scale: isRegisterHover? "1.1":"1.0"
+    scale: isRegisterHover? "1.1":"1.0",
+    transition: "transform 0.2s ease",
   }
+
+  const toggleButtonStyle = {
+    marginRight: "2vw",
+    marginLeft: "2vw", // optional: matches spacing of Sign in
+    paddingLeft: "1.25vw",
+    paddingRight: "1.25vw",
+    paddingTop: "1.25vh",
+    paddingBottom: "1.25vh",
+    fontSize: "120%",
+    backgroundColor:  "rgba(148, 149, 255, 1)",
+    color:  "#000",
+    borderStyle: "solid",
+    borderColor: "rgba(118, 118, 118, 1)", // Match sign-in
+    borderWidth: "1px",
+    boxShadow: "rgba(0, 0, 0, 0.25) 0px 3px 8px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+  }
+
+  const [isHoveringDarkMode, setIsHoveringDarkMode] = useState(false);
 
 
   //The component to be returned
@@ -134,6 +162,17 @@ function Header()
         </div>
 
       </a>
+
+      {/* Dark Mode Toggle */}
+      <button onClick={toggleDarkMode} style={{
+        ...toggleButtonStyle,
+        transform: isHoveringDarkMode ? "scale(1.1)" : "scale(1.0)"
+      }}
+      onMouseEnter={() => setIsHoveringDarkMode(true)}
+      onMouseLeave={() => setIsHoveringDarkMode(false)}
+      >
+          {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
     </header>
 
    

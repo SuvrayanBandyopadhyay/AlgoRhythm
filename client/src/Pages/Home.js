@@ -1,10 +1,12 @@
 import AudioCard from "../Components/AudioCard/AudioCard"
 import Aimage from "./A.png"
 import InfiniteSideScroll from "../Components/InfiniteSideScroll/InfiniteSideScroll"
+import { useOutletContext } from "react-router-dom";
 
 //Definition for the home page
 function Home()
 {   
+    const { darkMode } = useOutletContext();
     const centralText = 
     {
         height: "85vh",
@@ -13,7 +15,7 @@ function Home()
         justifyContent: "center",
         alignItems: "center",
 
-        backgroundColor: "rgba(245, 245, 245, 1)",
+        backgroundColor: darkMode ? "#121212" : "rgba(245, 245, 245, 1)",
     }
     //For the bold text container
     const boldContainer =
@@ -33,7 +35,7 @@ function Home()
     
     const boldText2 =
     {
-        color:"rgba(0, 0, 0, 1)",
+        color:darkMode ? "white" : "rgba(0, 0, 0, 1)",
         marginLeft:"2vw",
     }
 
@@ -46,12 +48,12 @@ function Home()
         textAlign:"Center",
         fontSize:"3vw",
 
-        color:"rgba(117, 117, 117, 1)",
+        color:darkMode ? "rgba(200, 200, 200, 1)" : "rgba(117, 117, 117, 1)",
     }
 
     const subtitle2 = 
     {
-        color:"rgba(117, 117, 117, 1)",
+        color: darkMode ? "rgba(200, 200, 200, 1)" :"rgba(117, 117, 117, 1)",
         fontSize:"2vw",
         marginLeft:"5vw",
         marginTop:"1vh",
@@ -62,7 +64,7 @@ function Home()
     const trendingText=
     {
         fontFamily:"Arial",
-        color:"black",
+        color:darkMode ? "white" : "black",
         
         marginLeft:"5vw",
         fontSize:"2vw",
