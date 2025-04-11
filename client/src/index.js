@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import ReactDOM from 'react-dom/client';
 
 //Import router functionality
@@ -15,18 +15,28 @@ import Search from './Pages/Search'
 
 export default function App()
 {
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved === 'true' ? true : false;
+  });
+
+  useEffect(() => {
+    document.body.className = darkMode ? 'dark-mode' : '';
+    localStorage.setItem('darkMode', darkMode); // persist
+  }, [darkMode]);
+
   return (
     <BrowserRouter>
       <Routes>
-          <Route path = "/" element = {<Layout/>}>
+          <Route path = "/" element = {<Layout darkMode={darkMode} setDarkMode={setDarkMode}/>}>
             <Route index element = {<Home/>}/>
             <Route path='search' element = {<Search/>}/>
+            <Route path="songupload" element={<SongUpload />}/>
           </Route>
 
           {/*Sign in and register */}
           <Route path ="/signin" element = {<Signin/>}></Route>
           <Route path ="/register" element = {<Register/>}></Route>
-          <Route path ="/songupload" element = {<SongUpload/>}></Route>
       </Routes>
     </BrowserRouter>
   )
