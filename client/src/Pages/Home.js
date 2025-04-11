@@ -80,7 +80,7 @@ function Home() {
 
     const subtitle2 = 
     {
-        color: darkMode ? "rgba(200, 200, 200, 1)" :"rgba(117, 117, 117, 1)",
+        color: darkMode ? "rgb(24, 22, 22)" :"rgba(117, 117, 117, 1)",
         fontSize:"2vw",
         marginLeft:"5vw",
         marginTop:"1vh",
@@ -103,6 +103,7 @@ function Home() {
 
     const trendingContainer = {
         display: "flex",
+        backgroundColor:darkMode ? "black" : "white",
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "center",
