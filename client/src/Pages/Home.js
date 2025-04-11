@@ -1,3 +1,4 @@
+
 import AudioCard from "../Components/AudioCard/AudioCard";
 import Aimage from "./A.png";
 import InfiniteSideScroll from "../Components/InfiniteSideScroll/InfiniteSideScroll";
@@ -7,6 +8,7 @@ import { useState } from "react";
 function Home() {
     const { setShowPlayer, setCurrentSong } = useOutletContext();
     const [playerVisible, setPlayerVisible] = useState(false);
+    const { darkMode } = useOutletContext();
 
     const handleAudioCardClick = (song) => {
         setCurrentSong(song);
@@ -14,31 +16,55 @@ function Home() {
         setPlayerVisible(true);
     };
 
-    const centralText = {
+
+
+
+//Definition for the home page
+
+  
+    const centralText = 
+    {
+
         height: "85vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(245, 245, 245, 1)",
+        backgroundColor: darkMode ? "#121212" : "rgba(245, 245, 245, 1)",
     };
-
-    const boldContainer = {
+  
+  const boldContainer = {
         display: "flex",
         justifyContent: "center",
         fontFamily: "Arial",
         fontWeight: "550",
         fontSize: "6vw",
     };
+    
 
-    const boldText1 = {
-        color: "rgba(96, 0, 230, 1)",
-    };
+       
 
-    const boldText2 = {
-        color: "rgba(0, 0, 0, 1)",
-        marginLeft: "2vw",
-    };
+    
+
+
+   
+
+    //Text definitions
+    const boldText1 =
+    {
+        color:"rgba(96, 0, 230, 1)",
+    }
+    
+    const boldText2 =
+    {
+        color:darkMode ? "white" : "rgba(0, 0, 0, 1)",
+        marginLeft:"2vw",
+    }
+
+
+
+
+    
 
     const subtitle1 = {
         marginTop: "5vh",
@@ -47,24 +73,33 @@ function Home() {
         wordWrap: "break-word",
         textAlign: "Center",
         fontSize: "3vw",
-        color: "rgba(117, 117, 117, 1)",
+        color:darkMode ? "rgba(200, 200, 200, 1)" : "rgba(117, 117, 117, 1)",
     };
 
-    const subtitle2 = {
-        color: "rgba(117, 117, 117, 1)",
-        fontSize: "2vw",
-        marginLeft: "5vw",
-        marginTop: "1vh",
-    };
+    
 
-    const trendingText = {
-        fontFamily: "Arial",
-        color: "black",
-        marginLeft: "5vw",
-        fontSize: "2vw",
-        marginTop: "8vh",
-        fontWeight: "100",
-    };
+    const subtitle2 = 
+    {
+        color: darkMode ? "rgba(200, 200, 200, 1)" :"rgba(117, 117, 117, 1)",
+        fontSize:"2vw",
+        marginLeft:"5vw",
+        marginTop:"1vh",
+    }
+
+
+
+    //Text for the trending section
+    const trendingText=
+    {
+        fontFamily:"Arial",
+        color:darkMode ? "white" : "black",
+        
+        marginLeft:"5vw",
+        fontSize:"2vw",
+        marginTop:"8vh",
+        fontWeight:"100",
+    }
+
 
     const trendingContainer = {
         display: "flex",
