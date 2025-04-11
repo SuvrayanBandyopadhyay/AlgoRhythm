@@ -1,6 +1,10 @@
 import { Outlet, Link } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function SongUpload() {
+    const { darkMode } = useOutletContext();
+    const [fileName, setFileName] = useState("No file chosen");
     const styles = {
         container: {
             display: 'flex',
@@ -8,10 +12,10 @@ export default function SongUpload() {
             alignItems: 'center',
             height: '100vh',
             padding: '10px',
-            backgroundColor: '#f4f4f4'
+            backgroundColor: darkMode ? '#121212' : '#f4f4f4'
         },
         uploadBox: {
-            background: 'white',
+            background:darkMode ? '#1e1e1e' : 'white',
             padding: '20px',
             borderRadius: '10px',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -20,15 +24,23 @@ export default function SongUpload() {
         },
         heading: {
             fontSize: '1.5rem',
-            color: '#333',
+            color: darkMode ? 'white' : '#333',
             marginBottom: '15px'
         },
         fileInput: {
             width: '90%',
             padding: '10px',
             marginBottom: '15px',
-            border: '1px solid #ccc',
-            borderRadius: '5px'
+            border: `1px solid ${darkMode ? '#666' : '#ccc'}`,
+            borderRadius: '5px',
+            backgroundColor: darkMode ? '#2c2c2c' : 'white',
+            color: darkMode ? 'white' : 'black'
+        },
+        fileNameText: {
+            marginBottom: '15px',
+            color: darkMode ? '#fff' : '#555',
+            fontSize: '0.9rem',
+            wordBreak: 'break-word'
         },
         uploadButton: {
             width: '100%',
