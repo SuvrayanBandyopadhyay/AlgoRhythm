@@ -80,7 +80,7 @@ function Home() {
 
     const subtitle2 = 
     {
-        color: darkMode ? "rgb(24, 22, 22)" :"rgba(117, 117, 117, 1)",
+        color: darkMode ? "white" : "rgba(117, 117, 117, 1)",
         fontSize:"2vw",
         marginLeft:"5vw",
         marginTop:"1vh",
@@ -127,6 +127,10 @@ function Home() {
             style={{
                 marginBottom: playerVisible ? "100px" : "0px",
                 transition: "margin-bottom 0.3s ease-in-out",
+                backgroundColor: darkMode ? "black" : "white", // 
+                minHeight: "100vh", // Ensure full screen is covered
+                width: "100vw", // Cover horizontal white space
+                overflowX: "hidden" // Prevent horizontal scroll
             }}
         >
             <div style={centralText}>
