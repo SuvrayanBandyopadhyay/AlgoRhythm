@@ -3,10 +3,9 @@ import { Outlet } from "react-router-dom";
 import Header from "../Components/Header/Header";
 import MusicPlayer from "../Components/MusicPlayer/MusicPlayer";
 
-export default function Layout() {
+export default function Layout({ darkMode, setDarkMode }) {
     const [showPlayer, setShowPlayer] = useState(false);
     const [currentSong, setCurrentSong] = useState(null); // store selected song
-    const [darkMode, setDarkMode] = useState(false);
 
     return (
         <>
