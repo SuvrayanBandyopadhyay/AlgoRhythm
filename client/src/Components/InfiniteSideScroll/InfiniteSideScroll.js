@@ -3,10 +3,13 @@ import { Box, Card, CardContent, Typography,Paper,Stack } from "@mui/material";
 import { color, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { p } from 'framer-motion/client';
+import { useOutletContext } from "react-router-dom";
 
 const InfiniteSideScroll = () => {
     const [items, setItems] = useState(Array.from({ length: 20 }, (_, i) => i));
     const { ref, inView } = useInView({ threshold: 0.5 });
+
+    const { darkMode } = useOutletContext();
   
     // Load more items when last item is in view
     const loadMoreItems = useCallback(() => {
@@ -49,7 +52,7 @@ const InfiniteSideScroll = () => {
             </Box>
             {/* Text - Takes Bottom Half */}
             <Box sx={{ width: "100%", height: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Paper sx={{backgroundColor:"black",width: "100%", height: "100%"}} square={true} elevation={3}>
+              <Paper sx={{backgroundColor: darkMode ? "#444" : "black",width: "100%", height: "100%"}} square={true} elevation={3}>
                 <p>ererer</p>
               </Paper>
             </Box>
