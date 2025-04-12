@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 
 
-function SigninForm()
+function SigninForm({ darkMode })
 {
     const [user,setUser]= useState("")
     
@@ -9,8 +9,9 @@ function SigninForm()
     const container = 
     {
         display: "flex",
-        height:"100vh"
-
+        height:"100vh",
+        backgroundColor: darkMode ? "#121212" : "white",
+        color: darkMode ? "white" : "black"
     }
     //Left design
 
@@ -28,6 +29,7 @@ function SigninForm()
         marginTop:"45vh",
         justifyContent:"Center",
         fontWeight:"Bold",
+        color: darkMode ? "black" : "black"
 
         //Font outline
         
@@ -48,13 +50,14 @@ function SigninForm()
     {
 
         display: "block",
-        background: "rgb(245, 245, 245)",
+        background: darkMode ? "#333333" : "rgb(245, 245, 245)",
         padding: "5%",
         width: "80%", // Relative width for better scaling
         maxWidth: "400px", // Prevents it from getting too big
         borderRadius: "5%",
         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
         minWidth: "250px",
+        color: darkMode ? "white" : "black"
 
 
     }
@@ -68,7 +71,7 @@ function SigninForm()
     //Label formatting
     const label =
     {
-        color:"rgba(96, 0, 230, 1)",
+        color:darkMode ? "rgba(173, 144, 255, 1)" : "rgba(96, 0, 230, 1)",
         fontWeight:"bold",
         fontFamily:"Arial"
     }
@@ -79,7 +82,9 @@ function SigninForm()
         width:"80%",
         height: "30px",
         
-        border: "1px solid rgba(0, 0, 0, 0.2)"
+        border: "1px solid rgba(0, 0, 0, 0.2)",
+        backgroundColor: darkMode ? "#2a2a2a" : "white",
+        color: darkMode ? "white" : "black"
     }
     
     //The submit button
