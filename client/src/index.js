@@ -36,7 +36,7 @@ export default function App()
 
           {/*Sign in and register */}
           <Route path ="/signin" element = {<Signin darkMode={darkMode}/>}></Route>
-          <Route path ="/register" element = {<Register/>}></Route>
+          <Route path ="/register" element = {<Register darkMode={darkMode}/>}></Route>
       </Routes>
     </BrowserRouter>
   )

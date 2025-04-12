@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './RegisterForm.css'
 
-export default function RegisterForm() {
+export default function RegisterForm({ darkMode }) {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -40,7 +40,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="container">
+    <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
       <div className="left-design">
         <div className="register-text">CREATE ACCOUNT</div>
       </div>
