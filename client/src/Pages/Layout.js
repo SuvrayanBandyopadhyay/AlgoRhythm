@@ -6,6 +6,7 @@ import MusicPlayer from "../Components/MusicPlayer/MusicPlayer";
 export default function Layout({ darkMode, setDarkMode }) {
     const [showPlayer, setShowPlayer] = useState(false);
     const [currentSong, setCurrentSong] = useState(null); // store selected song
+    
 
     return (
         <>
@@ -13,7 +14,10 @@ export default function Layout({ darkMode, setDarkMode }) {
             <main style={{ paddingTop: "10vh", paddingBottom: "10vh" }}>
                 <Outlet context={{  darkMode,showPlayer, setShowPlayer, currentSong, setCurrentSong }} />
             </main>
-            {showPlayer && <MusicPlayer song={currentSong} position="footer" />}
+            {showPlayer && <MusicPlayer 
+                song={currentSong}
+                onClose={() => setShowPlayer(false)}
+                position="footer" />}
         </>
     );
 }
