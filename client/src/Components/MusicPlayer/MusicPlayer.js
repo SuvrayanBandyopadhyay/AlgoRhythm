@@ -4,6 +4,7 @@ export default function MusicPlayer({ song, position = "footer", playlist = [] }
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentSong, setCurrentSong] = useState(song);
+    const [showPlayer, setShowPlayer] = useState(false);
 
     const audioRef = useRef(new Audio());
 
@@ -25,6 +26,21 @@ export default function MusicPlayer({ song, position = "footer", playlist = [] }
             audioRef.current.pause();
         };
     }, []);
+
+    const controlButtonContainer = {
+        position: "absolute",
+        top: "0.25rem",
+        right: "4.5rem",
+    };
+    
+    const controlButtonStyle = {
+        fontSize: "0.8rem",
+        cursor: "pointer",
+        background: "none",
+        border: "none",
+        color: "grey"
+    };
+    
 
     const togglePlayPause = () => {
         if (!currentSong) return;
@@ -73,6 +89,12 @@ export default function MusicPlayer({ song, position = "footer", playlist = [] }
         fontSize: "1.2rem"
     };
 
+    
+    const onClose = () => {
+        setShowPlayer(false);
+        setCurrentSong(null); // Optional: reset the song if needed
+      };
+
     const buttonStyle = {
         padding: "10px 15px",
         margin: "0 10px",
@@ -97,6 +119,9 @@ export default function MusicPlayer({ song, position = "footer", playlist = [] }
                             {isPlaying ? "⏸ Pause" : "▶️ Play"}
                         </button>
                         <button onClick={playNext} style={buttonStyle}>⏭ Next</button>
+                    </div>
+                    <div style={controlButtonContainer}>
+                        <button style={controlButtonStyle} onClick={onClose}>X</button>
                     </div>
                 </>
             ) : (
