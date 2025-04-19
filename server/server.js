@@ -67,8 +67,6 @@ app.post('/signincheck',async function(req,res)
     password = req.body["pass"];
 
     val = await checkLogin(username,password);
-    console.log("Val")
-    console.log(val)
     if(val !=-1)
     { 
         //If session is not defined
@@ -86,14 +84,23 @@ app.post('/signincheck',async function(req,res)
        
         res.redirect('http://localhost:3000/');
     }
-    else   
-        res.send("INVALID");
+    else  {
+        // Failed login: redirect back to signin with query param
+        res.redirect("http://localhost:3000/signin?failed=true");
+    } 
+        
 })
 
 app.post('/registercheck',function(req,res)
 {
     console.log(req.body);
     res.send(("New user tried to register"));
+})
+
+app.get('/signout',function(req,res)
+{
+    delete req.session.user;
+    res.redirect('http://localhost:3000/');
 })
 
 //Check authentication

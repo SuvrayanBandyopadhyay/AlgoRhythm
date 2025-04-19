@@ -18,9 +18,6 @@ async function checkLogin(username,password) {
         password_hash = \"${password}\"
     `, [username,password]);
     
-
-    console.log(rows)
-    console.log(rows.length)
     //If match found
     if(rows.length==1)
     {

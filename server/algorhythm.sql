@@ -98,6 +98,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (1,'tejas','tejas@example.com','testhash','2025-02-08 09:35:28');
+INSERT INTO `users` VALUES (2,'supersurvivor','super@example.com','superhash','2025-03-08 10:35:28');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
