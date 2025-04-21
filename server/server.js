@@ -3,11 +3,13 @@ const cors = require("cors");
 const bcrypt = require("bcrypt")
 const multer = require('multer');
 const path = require("path");
+const dotenv = require('dotenv');
+const session = require("express-session")
+
+
 const searchSongs = require("./database");
 const checkLogin = require("./checkLogin")
-const dotenv = require('dotenv');
-//For sessions
-const session = require("express-session")
+const checkRegister = require("./checkRegister")
 
 dotenv.config();
 
@@ -91,10 +93,25 @@ app.post('/signincheck',async function(req,res)
         
 })
 
-app.post('/registercheck',function(req,res)
+app.post('/registercheck',async function(req,res)
 {
-    console.log(req.body);
-    res.send(("New user tried to register"));
+    username = req.body["uname"];
+    email = req.body["email"];
+    pass = req.body["password"];
+    pass_conf = req.body["confirmpassword"];
+    val = await checkRegister(username,email,password,pass_conf);
+
+    //Success
+    if(val==0)
+    {
+        res.redirect('http://localhost:3000/')
+    }
+    //Failiure
+    else  {
+        // Failed login: redirect back to signin with query param
+        res.redirect("http://localhost:3000/register");
+    } 
+
 })
 
 app.get('/signout',function(req,res)

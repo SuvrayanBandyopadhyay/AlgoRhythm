@@ -1,7 +1,8 @@
+import { color } from 'framer-motion';
 import React,{useState} from 'react';
 
 
-function SigninForm({ darkMode })
+function SigninForm({ darkMode,failed=false })
 {
     const [user,setUser]= useState("")
     
@@ -100,6 +101,13 @@ function SigninForm({ darkMode })
         marginBottom:"5%"
     
     }
+
+    //The submit button
+    const error = {
+        color:"rgba(255,0,0,1)",
+        fontWeight:"bold"
+    }
+    
     
 
     return(
@@ -129,11 +137,14 @@ function SigninForm({ darkMode })
                 <input type="submit"  style={submit}/>
             </div>
         </form>
-    </div>
+        {/*Failed login check*/}
+        {failed ? <div style={error}>Incorrect Username or Password</div>:<></>}
     </div>
     </div>
     
-        
+    </div>
+    
+    
     
     </>)
 

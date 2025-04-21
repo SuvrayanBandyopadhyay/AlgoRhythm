@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import SearchBar from './SearchBar';
 
 function Header({ darkMode, setDarkMode })
@@ -105,14 +105,14 @@ function Header({ darkMode, setDarkMode })
   }
 
   const toggleButtonStyle = {
+    marginTop: "20vh",
     marginRight: "2vw",
     marginLeft: "2vw", // optional: matches spacing of Sign in
-    paddingLeft: "1.25vw",
-    paddingRight: "1.25vw",
-    paddingTop: "1.25vh",
-    paddingBottom: "1.25vh",
+    paddingLeft: "0.5vw",
+    paddingRight: "0.5vw",
+    paddingTop: "0.5vh",
+    paddingBottom: "0.5vh",
     fontSize: "120%",
-    backgroundColor:  "rgba(148, 149, 255, 1)",
     color:  "#000",
     borderStyle: "solid",
     borderColor: "rgba(118, 118, 118, 1)", // Match sign-in
@@ -124,13 +124,19 @@ function Header({ darkMode, setDarkMode })
   }
 
   const [isHoveringDarkMode, setIsHoveringDarkMode] = useState(false);
+  //Whether user has signed in or not
+  const[signedIn,setSignedIn] = useState(false);
+  useEffect(()=>
+    {
+      fetch("http://localhost:5000/auth/check",{method:"GET",credentials:"include"}).then(res=>res.json()).then(data=>{setSignedIn(data.authenitcated)})
+    })
 
 
   //The component to be returned
   return (
     <>
     <header style = {headerStyle}>
-      <SearchBar />
+      <SearchBar></SearchBar>
 
       <div><a href = "/" style = {link}>Home</a></div>
      
@@ -139,8 +145,10 @@ function Header({ darkMode, setDarkMode })
       <div><a href = "/songupload" style = {link}>Upload</a></div>
      
       <div><a href = "/edit" style = {link}>Edit</a></div>
-     
-    
+
+
+      {/*sign in and register*/}
+      {!signedIn &&(
       <a href  = "/signin" style = {{textDecoration:"none"}}>
         <div
         style ={signin} 
@@ -150,8 +158,9 @@ function Header({ darkMode, setDarkMode })
           Sign in
         </div>
       </a>
-    
+      )}
 
+      {!signedIn&&(
       <a href  = "/register" style = {{textDecoration:"none"}}>
         <div
         style ={register} 
@@ -160,9 +169,23 @@ function Header({ darkMode, setDarkMode })
         >
           Register
         </div>
-
       </a>
+      )}
 
+      {/*Signout*/}
+      {signedIn &&(
+      <a href  = "http://localhost:5000/signout" style = {{textDecoration:"none"}}>
+        <div
+        style ={signin} 
+        onMouseEnter={()=>setSignInHover(true)}
+        onMouseLeave={()=>setSignInHover(false)}
+        >
+          Sign Out
+        </div>
+      </a>
+      )}
+
+      
       {/* Dark Mode Toggle */}
       <button onClick={toggleDarkMode} style={{
         ...toggleButtonStyle,
@@ -171,8 +194,18 @@ function Header({ darkMode, setDarkMode })
       onMouseEnter={() => setIsHoveringDarkMode(true)}
       onMouseLeave={() => setIsHoveringDarkMode(false)}
       >
-          {darkMode ? "Light Mode" : "Dark Mode"}
+      <img
+      src="icons/bulb.png"
+      alt="Toggle Dark Mode"
+      style={{
+        width: "4vh",
+        height: "4vh",
+        pointerEvents: "none"
+      }}
+    />
+          
       </button>
+    
     </header>
 
    

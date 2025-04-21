@@ -10,6 +10,8 @@ function Home() {
     const [playerVisible, setPlayerVisible] = useState(false);
     const { darkMode } = useOutletContext();
 
+  
+
     const handleAudioCardClick = (song) => {
         setCurrentSong(song);
         setShowPlayer(true);
@@ -42,12 +44,6 @@ function Home() {
     };
     
 
-       
-
-    
-
-
-   
 
     //Text definitions
     const boldText1 =
@@ -62,9 +58,6 @@ function Home() {
     }
 
 
-
-
-    
 
     const subtitle1 = {
         marginTop: "5vh",

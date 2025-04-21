@@ -34,6 +34,7 @@ export default function RegisterForm({ darkMode }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
+      console.log("Hi");
       console.log('Registration data:', formData);
       // Submission logic
     }
