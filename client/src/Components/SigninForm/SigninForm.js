@@ -2,10 +2,8 @@ import { color } from 'framer-motion';
 import React,{useState} from 'react';
 
 
-function SigninForm({ darkMode,failed=false })
+function SigninForm({ darkMode})
 {
-    const [user,setUser]= useState("")
-    
 
     const container = 
     {
@@ -108,7 +106,8 @@ function SigninForm({ darkMode,failed=false })
         fontWeight:"bold"
     }
     
-    
+    const params = new URLSearchParams(window.location.search);
+    const failed = params.get("failed") == "true"//Strict equality check;
 
     return(
     <>

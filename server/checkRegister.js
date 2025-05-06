@@ -13,9 +13,15 @@ const pool = mysql.createPool({
 async function checkRegister(username,email,password,confirm_password) {
   
     //Check if password and confirm password match
-    if(password==confirm_password)
+    if(password!=confirm_password)
     {
         return -1;
+    }
+
+    //Check if password is long enough
+    if(password.length<8)
+    {
+        return -2;
     }
 
     //Check if username or email exists
@@ -26,38 +32,26 @@ async function checkRegister(username,email,password,confirm_password) {
     `, [username,password]);
     
     //If match found
-    if(rows.length==1)
+    if(rows.length>0)
     {
-        return -2;
+        return -3;
     }
     
-    
-    //Now we can add the new user  
-    const salt_rounds = 10;
+    //try adding new value with hash
+    try
+    {
+        const saltrounds = 10;
+        const hash = await bcrypt.hash(password,saltrounds);
 
-    bcrypt.genSalt(salt_rounds,(err,salt)=>
-        {
-            if(err)
-                {
-                    return -3 //Internal error
-                }
-        });
+        await pool.query("INSERT INTO users (username,email,password_hash,create_timestamp) VALUES (?,?,?,NOW())",[username,email,hash]);
+        return 0;
+    }
+    catch(err)
+    {
+        return -4
+    }
+    
 
-    //Now we hash the password
-    bcrypt.hash(password,salt,(err,hash)=>
-        {
-            if(err)
-                {
-                    return -3 //Internal error
-                }
-        });
-    
-    //Now we insert
-    const result = await pool.query(
-        "INSERT INTO users(username,email,password_hash,create_timestamp) values ($1,$2,$3,curdate())",(username,email,bcrypt.hash)
-    );
-    
-    return 0;
 }
 
 module.exports = checkRegister;

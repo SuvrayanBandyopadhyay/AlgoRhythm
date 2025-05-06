@@ -1,36 +1,10 @@
+import { color } from 'framer-motion';
 import React,{useState} from 'react';
 
 
-function RegisterForm({ darkMode})
+function UploadForm({ darkMode})
 {
-    const container = 
-    {
-        display: "flex",
-        height:"100vh",
-        backgroundColor: darkMode ? "#121212" : "white",
-        color: darkMode ? "white" : "black"
-    }
-    //Left design
-
-    const leftDesign = {
-        background: " rgba(157, 135, 255, 1)",
-        width: "40%",
-        minWidth: "250px",
-    };
-    //Signin text
-    const RegisterText=
-    {
-        fontFamily:"Arial",
-        fontSize:"400%",
-        display:"flex",
-        marginTop:"45vh",
-        justifyContent:"Center",
-        fontWeight:"Bold",
-        color: darkMode ? "black" : "black"
-
-        //Font outline
-        
-    }
+    const [filename,setFileName] = useState("No File Chosen")
 
     //Form container
     const formContainer = 
@@ -73,11 +47,21 @@ function RegisterForm({ darkMode})
         fontFamily:"Arial"
     }
 
+    //Filename formatting
+    const fileText=
+    {
+        display:"flex",
+        alignItems:"center",
+        paddingTop:"1.5%",
+        paddingLeft:"1%"
+       
+    }
+
     //Field formatting
     const field ={
         marginTop:"1%",
         width:"80%",
-        height: "30px",
+        height: "30px",display: "flex",  justifyContent: "center",  alignItems: "center",
         
         border: "1px solid rgba(0, 0, 0, 0.2)",
         backgroundColor: darkMode ? "#2a2a2a" : "white",
@@ -104,60 +88,50 @@ function RegisterForm({ darkMode})
         fontWeight:"bold"
     }
     
-    //Get failiure code
     const params = new URLSearchParams(window.location.search);
-    const failed = parseInt(params.get("failed"), 10); // Convert string to int
+    const failed = params.get("failed") == "true"//Strict equality check;
 
     return(
     <>
-    <div style = {container}>
-    <div style = {leftDesign}>
-        <div style = {RegisterText}>
-        REGISTER
-        </div>
-    </div>
+  
     <div style = {formContainer}>
     <div style={form}>
     
-        <form action="http://localhost:5000/registercheck" method="POST">
+        <form action="http://localhost:5000/songupload" method="POST">
             <div style={inputContainer} >
-                <label style={label}>Username </label>
+                <label style={label}>Title </label>
                 <br/>
-                <input type="text" name="uname" required style={field}/>
+                <input type="text" name="title" required style={field}/>
             </div>
+
             <div style={inputContainer}>
-                <label style={label}>Email </label>
-                <br/>
-                <input type="text" name="email" required style={field}/>
+            <label style={label}>File </label>
+            <br/>
+            <label style={{ ...field, display: 'inline-block', cursor: 'pointer' }}>
+                <input 
+                type="file" 
+                accept="audio/*"
+                name="file" 
+                required 
+                onChange={(e) => setFileName(e.target.files[0]?.name || "No file chosen")} 
+                style={{display:'none'}}/>
+            <div style={fileText}>{filename}</div>
+            </label>
             </div>
-            <div style={inputContainer}>
-                <label style={label}>Password  </label>
-                <br/>
-                <input type="password" name="password" required style={field}/>
-            </div>
-            <div style={inputContainer}>
-                <label style={label}>Confirm Password</label>
-                <br/>
-                <input type="password" name="confirmpassword" required style={field}/>
-            </div>
+
+
             <div className="button-container">
                 <input type="submit"  style={submit}/>
             </div>
         </form>
-        {/*In case of wrong input*/}
-        {failed=="-1" ? <div style={error}>Passwords don't match</div>:<></>}
-        {failed=="-2" ? <div style={error}>Passwords is too short</div>:<></>}
-        {failed=="-3" ? <div style={error}>Username or Email is already in use</div>:<></>}
-        {failed=="-4" ? <div style={error}>Server error, please try again later</div>:<></>}
+        {/*Failed login check*/}
+        {failed ? <div style={error}>Invalid Title or Path</div>:<></>}
     </div>
     </div>
-    
-    </div>
-    
-    
+ 
     
     </>)
 
 }
 
-export default RegisterForm
+export default UploadForm

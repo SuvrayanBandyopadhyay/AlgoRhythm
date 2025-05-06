@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
+const bcrypt = require('bcrypt')
 dotenv.config()
 
 const pool = mysql.createPool({
@@ -14,14 +15,23 @@ async function checkLogin(username,password) {
 
     const [rows] = await pool.query(`
         SELECT * from users where
-        username = \"${username}\" and 
-        password_hash = \"${password}\"
-    `, [username,password]);
+        username = \"${username}\"
+    `, [username]);
     
     //If match found
     if(rows.length==1)
     {
-        return rows[0];
+        passhash = rows[0].password_hash;
+
+        const match = await bcrypt.compare(password,passhash);
+        if(match)
+        {
+                return rows[0];
+        }
+        else
+        {
+            return -1
+        }
     }
     else
     {

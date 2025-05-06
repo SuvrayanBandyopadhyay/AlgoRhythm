@@ -21,7 +21,7 @@ export default function Signin({darkMode})
        
         {/*Additional content which changes from page to page*/}
         <div style={styles.container}>
-            <SigninForm darkMode={darkMode} failed={failed}/>
+            <SigninForm darkMode={darkMode}/>
         </div> 
         </>
     )

@@ -1,6 +1,7 @@
 import { Outlet, Link } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react';
+import UploadForm from '../Components/UploadForm/UploadForm';
 
 export default function SongUpload() {
     const { darkMode } = useOutletContext();
@@ -59,28 +60,7 @@ export default function SongUpload() {
 
     return (
         <div style={styles.container}>
-            <div style={styles.uploadBox}>
-                <h2 style={styles.heading}>Upload Your Song</h2>
-                <form 
-                    action="http://localhost:5000/songupload" 
-                    method="POST" 
-                    encType="multipart/form-data"
-                >
-                    <input 
-                        type="file" 
-                        name="file" 
-                        style={styles.fileInput}
-                    />
-                    <button 
-                        type="submit" 
-                        style={styles.uploadButton}
-                        onMouseOver={(e) => e.target.style.background = styles.uploadButtonHover.background}
-                        onMouseOut={(e) => e.target.style.background = styles.uploadButton.background}
-                    >
-                        Upload
-                    </button>
-                </form>
-            </div>
-        </div>
+            <UploadForm darkMode={darkMode}/>
+        </div> 
     );
 }

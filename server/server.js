@@ -99,17 +99,17 @@ app.post('/registercheck',async function(req,res)
     email = req.body["email"];
     pass = req.body["password"];
     pass_conf = req.body["confirmpassword"];
-    val = await checkRegister(username,email,password,pass_conf);
+    val = await checkRegister(username,email,pass,pass_conf);
 
     //Success
     if(val==0)
     {
-        res.redirect('http://localhost:3000/')
+        res.redirect('http://localhost:3000/signin')
     }
     //Failiure
     else  {
         // Failed login: redirect back to signin with query param
-        res.redirect("http://localhost:3000/register");
+        res.redirect(`http://localhost:3000/register?failed=${val}`);
     } 
 
 })
