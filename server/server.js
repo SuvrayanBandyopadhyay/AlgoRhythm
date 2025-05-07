@@ -12,6 +12,7 @@ const searchSongs = require("./searchSongs");
 const checkLogin = require("./checkLogin");
 const checkRegister = require("./checkRegister");
 const saveFile = require("./saveFile");
+const getTrendingItems = require("./getTrendingItems")
 
 
 dotenv.config();
@@ -158,6 +159,34 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
     }
+});
+
+
+app.get('/getrending', async (req, res) => {
+    const i = req.query.i;
+    if (!i) {
+        return res.status(400).json({ error: 'Missing search query' });
+    }
+    const data = await getTrendingItems(i);
+
+    // Map over items and update imagefile to be a URL
+    const itemsWithUrls = data.items.map(item => {
+        let imagefileUrl = null;
+        if (item.imagefile) {
+            // Replace backslashes with forward slashes for URLs
+            const normalizedPath = item.imagefile.replace(/\\/g, '/');
+            imagefileUrl = `http://localhost:5000/${normalizedPath}`;
+        }
+        return {
+            ...item,
+            imagefile: imagefileUrl
+        };
+    });
+
+    res.json({
+        items: itemsWithUrls,
+        hasAll: data.hasAll,
+    });
 });
 
 

@@ -6,15 +6,28 @@ import { p } from 'framer-motion/client';
 import { useOutletContext } from "react-router-dom";
 
 const InfiniteSideScroll = () => {
-    const [items, setItems] = useState(Array.from({ length: 20 }, (_, i) => i));
+    var [hasAll,setHasAll] = useState(false);
+    const [items, setItems] = useState([]);
     const { ref, inView } = useInView({ threshold: 0.5 });
 
     const { darkMode } = useOutletContext();
   
     // Load more items when last item is in view
-    const loadMoreItems = useCallback(() => {
-      setItems((prev) => [...prev, ...Array.from({ length: 10 }, (_, i) => prev.length + i)]);
-    }, []);
+    const loadMoreItems = useCallback(async () => {
+      if(!hasAll){
+        console.log(hasAll)
+        console.log("sent")
+        try{
+          const response = await fetch(`http://localhost:5000/getrending?i=${items.length}`);
+          const data = await response.json();
+          setItems((prev) => [...prev, ...data.items]);
+          setHasAll(data.hasAll)
+          console.log(items);
+        } catch(error) { 
+          console.error(error)
+        }
+      }
+    }, [items]);
   
     // Run loadMoreItems ONLY when inView changes
     useEffect(() => {
@@ -46,14 +59,15 @@ const InfiniteSideScroll = () => {
             <Card sx={{ minWidth: 300, height: 200, display: "flex", alignItems: "center", justifyContent: "center",flexDirection: "column" }}>
             <Box sx={{ width: "100%", height: "80%" }}>
               <img 
-                src="/src/placeimg.png" 
+                src={items[index]["imagefile"]} 
+                alt={item.title}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }} 
               />
             </Box>
             {/* Text - Takes Bottom Half */}
             <Box sx={{ width: "100%", height: "20%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Paper sx={{backgroundColor: darkMode ? "#444" : "black",width: "100%", height: "100%"}} square={true} elevation={3}>
-                <p>ererer</p>
+              <Paper sx={{backgroundColor: darkMode ? "#444" : "black",width: "100%", height: "100%",color: "white"  }} square={true} elevation={3}>
+                <p>{items[index]["title"]}</p>
               </Paper>
             </Box>
             </Card>
