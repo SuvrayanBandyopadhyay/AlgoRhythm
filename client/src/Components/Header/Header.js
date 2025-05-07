@@ -195,7 +195,7 @@ function Header({ darkMode, setDarkMode })
       onMouseLeave={() => setIsHoveringDarkMode(false)}
       >
       <img
-      src="icons/bulb.png"
+      src="/icons/bulb.png"
       alt="Toggle Dark Mode"
       style={{
         width: "4vh",

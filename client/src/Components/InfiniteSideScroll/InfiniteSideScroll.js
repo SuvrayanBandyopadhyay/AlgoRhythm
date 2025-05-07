@@ -35,7 +35,10 @@ const InfiniteSideScroll = () => {
         loadMoreItems();
       }
     }, [inView, loadMoreItems]); // Dependency array 
-  
+    
+    //Get redirect
+    
+
     return (
     <div style={{paddingLeft:"60px"}}>
       <Box 
@@ -49,14 +52,18 @@ const InfiniteSideScroll = () => {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        {items.map((item, index) => (
+        {items.map((item, index) => {
+          var redirect = `/song/${item.id}`
+          return(  
           <motion.div
             key={index}
             whileHover={{ scale: 1.1 }}
             transition={{ type: "spring", stiffness: 100 }}
         
           >
+            <a href={redirect} style={{textDecoration:'none'}}>
             <Card sx={{ minWidth: 300, height: 200, display: "flex", alignItems: "center", justifyContent: "center",flexDirection: "column" }}>
+            
             <Box sx={{ width: "100%", height: "80%" }}>
               <img 
                 src={items[index]["imagefile"]} 
@@ -70,9 +77,12 @@ const InfiniteSideScroll = () => {
                 <p>{items[index]["title"]}</p>
               </Paper>
             </Box>
+            
             </Card>
+            </a>
           </motion.div>
-        ))}
+          );
+          })}
         <div ref={ref} style={{ width: 1, height: 1, opacity: 0 }} /> {/* Observer target */}
       </Box>
     </div>

@@ -141,15 +141,7 @@ function Home() {
             <div style={subtitle2}>Hear what others are jamming to</div>
             <InfiniteSideScroll />
 
-            <div style={trendingContainer}>
-                {trending.map((item, index) => (
-                    <AudioCard
-                        key={index}
-                        info={item}
-                        onClick={() => handleAudioCardClick(item)}
-                    />
-                ))}
-            </div>
+            
         </div>
     );
 }

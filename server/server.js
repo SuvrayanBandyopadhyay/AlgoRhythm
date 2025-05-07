@@ -12,7 +12,8 @@ const searchSongs = require("./searchSongs");
 const checkLogin = require("./checkLogin");
 const checkRegister = require("./checkRegister");
 const saveFile = require("./saveFile");
-const getTrendingItems = require("./getTrendingItems")
+const getTrendingItems = require("./getTrendingItems");
+const getSongInfo = require("./getSongInfo");
 
 
 dotenv.config();
@@ -189,7 +190,7 @@ app.get('/getrending', async (req, res) => {
     });
 });
 
-
+//Upload song
 const upload = multer({ 
     storage: storage,
     limits: { fileSize: 1024 * 1024 * 10 }
@@ -266,6 +267,28 @@ app.post('/songupload', upload.fields([
 
     }
 });
+
+//Get song info
+app.get('/song/:id',async (req,res)=>
+    {
+        try
+        {
+            const id = req.params.id;
+            data = await getSongInfo(id);
+            if(data)
+            {
+                res.send({data});
+            }
+            else
+            {
+                return res.status(404).send({message:"song not found"})
+            }
+        }
+        catch
+        {
+            res.status(500).send({ message: 'Error while retrieving song information' });
+        }
+    });
 
 
 app.listen(process.env.SERVER_PORT)

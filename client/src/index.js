@@ -12,6 +12,7 @@ import Signin from './Pages/Signin';
 import Register from './Pages/Register';
 import SongUpload from './Pages/SongUpload';
 import Search from './Pages/Search'
+import Song from './Pages/Song';
 
 export default function App()
 {
@@ -32,6 +33,7 @@ export default function App()
             <Route index element = {<Home/>}/>
             <Route path='search' element = {<Search/>}/>
             <Route path="songupload" element={<SongUpload />}/>
+            <Route path="song/:id" element={<Song></Song>}/>
           </Route>
 
           {/*Sign in and register */}

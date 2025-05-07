@@ -11,7 +11,7 @@ const pool = mysql.createPool({
 async function getTrendingItems(existingCount){
     try {
         const [results, fields] = await pool.query(
-          'SELECT * FROM songs ORDER BY id'
+          'SELECT * FROM songs ORDER BY id DESC LIMIT 20'
         );
     
         // console.log(results); // results contains rows returned by server

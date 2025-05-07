@@ -17,7 +17,7 @@ async function saveFile(userID,title,imageFile,audioFile) {
     if(rows.length==1)
     {
         console.log("IN")
-        await pool.query("INSERT INTO songs (title,duration,upload_timestamp,audioFile,imageFile) VALUES (?,5,now(),?,?)",[title,audioFile,imageFile])
+        await pool.query("INSERT INTO songs (title,upload_timestamp,audioFile,imageFile) VALUES (?,now(),?,?)",[title,audioFile,imageFile])
         const [rows3] = await pool.query("SELECT id from songs where title = ?",[title]);
         songID = rows3[0].id;
         await pool.query("INSERT INTO user_song_authorship values (?,?)",[userID,songID]);
