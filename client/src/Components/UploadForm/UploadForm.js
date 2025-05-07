@@ -1,10 +1,28 @@
-import { color } from 'framer-motion';
+import { color, startOptimizedAppearAnimation } from 'framer-motion';
 import React,{useState} from 'react';
 
 
 function UploadForm({ darkMode})
 {
-    const [filename,setFileName] = useState("No File Chosen")
+    const [filename1,setFileName1] = useState("No File Chosen")
+    const [filename2,setFileName2] = useState("No File Chosen")
+    const [image,setImage]= useState("/defaultImage.png");
+
+    //A function to handle image change
+    const handleImageChange = (e) => {
+        
+        setFileName1(e.target.files[0]?.name || "No File Chosen")
+        const file = e.target.files[0];
+        if(file)
+        {
+            setImage(URL.createObjectURL(file))
+        }
+        else
+        {
+            setImage("/defaultImage.png")
+        }
+    }
+
 
     //Form container
     const formContainer = 
@@ -56,6 +74,15 @@ function UploadForm({ darkMode})
         paddingLeft:"1%"
        
     }
+    //Image formatting
+    const imageStyle=
+    {
+      
+        marginLeft:'10%',
+        width:'15vw',
+        height:'15vw',
+        objectFit:'fill',
+    }
 
     //Field formatting
     const field ={
@@ -93,17 +120,41 @@ function UploadForm({ darkMode})
 
     return(
     <>
-  
+    {/*Display Image*/}
+    {image && (
+      
+        <img style={imageStyle} src={image} alt = "Image"></img>
+        
+    )}
+        
     <div style = {formContainer}>
+    {/*Form*/}
     <div style={form}>
-    
-        <form action="http://localhost:5000/songupload" method="POST">
+        
+        <form action="http://localhost:5000/songupload" method="POST" encType="multipart/form-data">
+            {/*Title*/}
             <div style={inputContainer} >
                 <label style={label}>Title </label>
                 <br/>
                 <input type="text" name="title" required style={field}/>
             </div>
+            
+            {/*Image*/}
+            <div style={inputContainer}>
+            <label style={label}>Display Image</label>
+            <br/>
+            <label style={{ ...field, display: 'inline-block', cursor: 'pointer' }}>
+                <input 
+                type="file" 
+                accept="image/*"
+                name="imageFile" 
+                onChange={handleImageChange} 
+                style={{display:'none'}}/>
+            <div style={fileText}>{filename1}</div>
+            </label>
+            </div>
 
+            {/*Filename*/}
             <div style={inputContainer}>
             <label style={label}>File </label>
             <br/>
@@ -111,20 +162,21 @@ function UploadForm({ darkMode})
                 <input 
                 type="file" 
                 accept="audio/*"
-                name="file" 
+                name="audioFile" 
                 required 
-                onChange={(e) => setFileName(e.target.files[0]?.name || "No file chosen")} 
+                onChange={(e) => setFileName2(e.target.files[0]?.name || "No File Chosen")} 
                 style={{display:'none'}}/>
-            <div style={fileText}>{filename}</div>
+            <div style={fileText}>{filename2}</div>
             </label>
             </div>
 
 
             <div className="button-container">
                 <input type="submit"  style={submit}/>
-            </div>
+            </div>        
         </form>
         {/*Failed login check*/}
+        {filename2=="No File Chosen"?<div style={error}>Enter Filename</div>:<></>}
         {failed ? <div style={error}>Invalid Title or Path</div>:<></>}
     </div>
     </div>

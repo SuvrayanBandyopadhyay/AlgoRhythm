@@ -26,11 +26,11 @@ async function checkLogin(username,password) {
         const match = await bcrypt.compare(password,passhash);
         if(match)
         {
-                return rows[0];
+                return rows[0].id;
         }
         else
         {
-            return -1
+            return -1;
         }
     }
     else

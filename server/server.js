@@ -4,12 +4,15 @@ const bcrypt = require("bcrypt")
 const multer = require('multer');
 const path = require("path");
 const dotenv = require('dotenv');
-const session = require("express-session")
+const session = require("express-session");
+const fs = require('fs').promises;
 
 
-const searchSongs = require("./database");
-const checkLogin = require("./checkLogin")
-const checkRegister = require("./checkRegister")
+const searchSongs = require("./searchSongs");
+const checkLogin = require("./checkLogin");
+const checkRegister = require("./checkRegister");
+const saveFile = require("./saveFile");
+
 
 dotenv.config();
 
@@ -34,6 +37,9 @@ app.use(session({
     saveUninitialized: true,
     expires: new Date(Date.now() + 2*60*60*1000),//24 hrs
 }))
+//Uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 
 //# Search
@@ -125,7 +131,6 @@ app.get('/auth/check',function(req,res)
 {
     if (req.session.user)
     {
-        console.log(req.session.user.id)
         res.json({authenitcated:true,user:req.session.user.name,id:req.session.user.id});
     }
     else
@@ -136,59 +141,102 @@ app.get('/auth/check',function(req,res)
 
 
 
-//# Song Upload
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        // Files will be uploaded to 'uploads' directory
-        cb(null, 'uploads/');
+        //If it is an imageFile
+        if(file.fieldname==='imageFile')
+        {
+            cb(null, 'uploads/images');
+        }
+        else if(file.fieldname==="audioFile")
+        {
+            cb(null,'uploads/audio')
+        }
+
+        
     },
     filename: function (req, file, cb) {
-        // Generate unique filename with original extension
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 
-// File filter function to control which files are accepted
-const fileFilter = (req, file, cb) => {
-    // Accept only specific file types
-    if (file.mimetype === 'image/jpeg' || 
-        file.mimetype === 'image/png' || 
-        file.mimetype === 'application/pdf' ||
-        file.mimetype === 'text/plain' ||
-        file.mimetype === 'audio/mpeg' ||    // MP3 files
-        file.mimetype === 'audio/mp3'){
-        cb(null, true);
-    } else {
-        cb(new Error('Invalid file type'), false);
-    }
-};
 
 const upload = multer({ 
     storage: storage,
-    fileFilter: fileFilter,
-    limits: {
-        fileSize: 1024 * 1024 * 10 // 10MB file size limit
-    }
+    limits: { fileSize: 1024 * 1024 * 10 }
 });
 
-app.post('/songupload', upload.single('file'), (req, res) => {
+app.post('/songupload', upload.fields([
+    { name: 'imageFile', maxCount: 1 },
+    { name: 'audioFile', maxCount: 1 }
+]), async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).send('No file uploaded.');
-        }   
-        // File upload successful
+        if (!req.files || !req.files.audioFile) {
+            return res.status(400).send({ message: 'Audio Files not found' });
+        }
+
+        if(!req.session.user)
+        {
+            if (req.files?.audioFile) {
+                await fs.unlink(req.files.audioFile[0].path).catch(console.error);
+            }
+            if (req.files?.imageFile) {
+                await fs.unlink(req.files.imageFile[0].path).catch(console.error);
+            }
+
+            res.status(404).send("NOT SIGNED IN")
+    
+        }
+
+        else{
+
+        val = await saveFile(req.session.user.id,req.body.title,req.files.imageFile[0].path,req.files.audioFile[0].path);
+        
+        if(val>=0)
+        {
         res.send({
-            message: 'File uploaded successfully',
-            filename: req.file.filename,
-            path: req.file.path,
-            size: req.file.size
-        });
+            message: 'Files uploaded successfully',
+            audio: req.files.audioFile?.[0]?.originalname,
+            image: req.files.imageFile?.[0]?.originalname,
+            title: req.body.title
+        });}
+        else
+        {
+            if (req.files?.audioFile) {
+                await fs.unlink(req.files.audioFile[0].path).catch(console.error);
+            }
+            if (req.files?.imageFile) {
+                await fs.unlink(req.files.imageFile[0].path).catch(console.error);
+            }
+        
+            if(val==-1)
+            {
+                res.status(500).send({message:"Error uploading file"});
+            }
+        }
+
+        }
+        
+
+
     } catch (error) {
+
+
+        if (req.files?.audioFile) {
+            await fs.unlink(req.files.audioFile[0].path).catch(console.error);
+        }
+        if (req.files?.imageFile) {
+            await fs.unlink(req.files.imageFile[0].path).catch(console.error);
+        }
+
         res.status(500).send({
             message: 'Error uploading file',
             error: error.message
         });
+
+
     }
 });
+
 
 app.listen(process.env.SERVER_PORT)

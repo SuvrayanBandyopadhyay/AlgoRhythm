@@ -31,6 +31,7 @@ export default function SearchResults() {
     }
   }, [query]);
 
+  
   return <>
     {
       status === 'loading' ?

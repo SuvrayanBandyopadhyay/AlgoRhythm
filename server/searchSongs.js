@@ -20,7 +20,8 @@ async function searchSongs(query, offset) {
         LIMIT ${limit}
         OFFSET ?
     `, [query, offset * limit]);
-
+    
+    console.log(rows)
     return rows;
 }
 
