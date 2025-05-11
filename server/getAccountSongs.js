@@ -11,7 +11,7 @@ const pool = mysql.createPool({
 async function getAccountSongs(existingCount,id){
     try {
         const [results, fields] = await pool.query(
-          'SELECT songs.* FROM user_song_authorship,songs where user_song_authorship.user_id = 4 and user_song_authorship.song_id = songs.id',
+          'SELECT songs.* FROM user_song_authorship,songs where user_song_authorship.user_id = ? and user_song_authorship.song_id = songs.id',
           [id]
         );
     
