@@ -10,13 +10,12 @@ const pool = mysql.createPool({
 
 async function saveFile(userID,title,imageFile,audioFile) {
   
-    console.log("IN")
+
     const [rows] = await pool.query("SELECT * from users where id = ?", [userID]);
-    console.log("IN")
+   
     //If match found
     if(rows.length==1)
     {
-        console.log("IN")
         await pool.query("INSERT INTO songs (title,upload_timestamp,audioFile,imageFile) VALUES (?,now(),?,?)",[title,audioFile,imageFile])
         const [rows3] = await pool.query("SELECT id from songs where title = ?",[title]);
         songID = rows3[0].id;

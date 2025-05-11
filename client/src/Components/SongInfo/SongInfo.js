@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
 
+
 export default function SongInfo({ darkMode})
 {
     const {id}= useParams();//Get id from router parameter
@@ -36,8 +37,8 @@ export default function SongInfo({ darkMode})
         //Each input box
         const container=
         {
-            paddingTop:"4%",
-            paddingBottom:"4%",
+            paddingTop:"2%",
+            paddingBottom:"2%",
         }
         
         //Label formatting
@@ -84,7 +85,7 @@ export default function SongInfo({ darkMode})
     //If we havent loaded song yet
     if(!song)
     {
-        return(<div>{id}</div>)
+        return(<div>Loading...</div>)
     }
     else
     {
@@ -100,6 +101,8 @@ export default function SongInfo({ darkMode})
         var title = song.title
         var user = song.username
         var date = song.upload_timestamp.split('T')[0]
+        var views = Math.floor(song.views);
+        var userredirect = `/account/${song.user_id}`
         /*return(
             <div>{song.title}
             <br></br>
@@ -115,7 +118,7 @@ export default function SongInfo({ darkMode})
         alignItems: "flex-start",
         paddingTop: "8%",
         gap: "5%",
-        flexWrap: "wrap" // optional: allows responsiveness
+        flexWrap: "wrap" 
     }}>
     <img style={imageStyle} src={imgsrc} alt = "Image"></img>
     
@@ -132,8 +135,15 @@ export default function SongInfo({ darkMode})
             {/*Uploaded by*/}
             <div style={container}>
                 <label style={label}>Uploaded by</label>
-                <div style={Text}>{user}</div>
+                <div style={Text}><a href={userredirect} style={{textDecoration:'none'}}>{user}</a></div>
             </div>
+
+            {/*Views (We add 0.5 because react calls fetch twice)*/}
+            <div style={container}>
+                <label style={label}>Views</label>
+                <div style={Text}>{views}</div>
+            </div>
+
 
             {/*Date*/}
             <div style={container}>

@@ -1,26 +1,15 @@
 
 import AudioCard from "../Components/AudioCard/AudioCard";
 import Aimage from "./A.png";
-import InfiniteSideScroll from "../Components/InfiniteSideScroll/InfiniteSideScroll";
+import InfiniteSideScrollLatest from "../Components/InfiniteSideScroll/InfiniteSideScrollLatest";
+import InfiniteSideScrollTrending from "../Components/InfiniteSideScroll/InfiniteSideScrollTrending";
 import { useOutletContext } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import InfiniteSideScrollPopular from "../Components/InfiniteSideScroll/InfiniteSideScrollPopular";
 
-function Home() {
-    const { setShowPlayer, setCurrentSong } = useOutletContext();
+function Home() {;
     const [playerVisible, setPlayerVisible] = useState(false);
     const { darkMode } = useOutletContext();
-
-  
-
-    const handleAudioCardClick = (song) => {
-        setCurrentSong(song);
-        setShowPlayer(true);
-        setPlayerVisible(true);
-    };
-
-
-
-
 //Definition for the home page
 
   
@@ -115,15 +104,26 @@ function Home() {
         { image: Aimage, text: "song", artist: "Random" },
     ];
 
+    
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if(params.get("upload")==="success")
+    {
+      alert("Song Uploaded");  
+    }
+    },[]);
+
     return (
         <div
             style={{
                 marginBottom: playerVisible ? "100px" : "0px",
+                paddingBottom:"50px",
                 transition: "margin-bottom 0.3s ease-in-out",
                 backgroundColor: darkMode ? "black" : "white", // 
                 minHeight: "100vh", // Ensure full screen is covered
                 width: "100vw", // Cover horizontal white space
                 overflowX: "hidden" // Prevent horizontal scroll
+                
             }}
         >
             <div style={centralText}>
@@ -133,14 +133,22 @@ function Home() {
                 </div>
                 <br />
                 <div style={subtitle1}>
-                    Seamlessly download, edit and share open source audio
+                    Seamlessly download and share open source audio
                 </div>
             </div>
-
             <div style={trendingText}>Trending</div>
             <div style={subtitle2}>Hear what others are jamming to</div>
-            <InfiniteSideScroll />
+            <InfiniteSideScrollTrending />
+            
 
+            <div style={trendingText}>Latest</div>
+            <div style={subtitle2}>Listen to the newest beats</div>
+            <InfiniteSideScrollLatest />
+            
+            <div style={trendingText}>Popular</div>
+            <div style={subtitle2}>Works from the most loved artists</div>
+            <InfiniteSideScrollPopular />
+            
             
         </div>
     );

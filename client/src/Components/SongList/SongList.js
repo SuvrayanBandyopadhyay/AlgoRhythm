@@ -14,7 +14,10 @@ export default function SongList(props) {
                 {
                     imagePath= "/defaultImage.png"
                 }
+                var redirect = `/song/${song.id}`
                 return (
+                    <>
+                    <a href={redirect} style={{textDecoration:'none'}}>
                     <div key={song.id} className="song-item">
                         <img 
                             src={imagePath} 
@@ -28,6 +31,8 @@ export default function SongList(props) {
                             </div>
                         </div>
                     </div>
+                    </a>
+                    </>
                 );
             })}
         </div>

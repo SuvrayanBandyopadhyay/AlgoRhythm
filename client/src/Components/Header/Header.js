@@ -132,6 +132,7 @@ function Header({ darkMode, setDarkMode })
     })
 
 
+
   //The component to be returned
   return (
     <>
@@ -144,7 +145,7 @@ function Header({ darkMode, setDarkMode })
      
       <div><a href = "/songupload" style = {link}>Upload</a></div>
      
-      <div><a href = "/edit" style = {link}>Edit</a></div>
+
 
 
       {/*sign in and register*/}

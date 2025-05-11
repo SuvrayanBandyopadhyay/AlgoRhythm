@@ -1,6 +1,6 @@
 import { Outlet, Link } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import UploadForm from '../Components/UploadForm/UploadForm';
 
 export default function SongUpload() {
@@ -58,6 +58,13 @@ export default function SongUpload() {
         }
     };
 
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if(params.get("failed")==="true")
+        {
+          alert("Incorrect Parameters");  
+        }
+        },[]);
     return (
         <div style={styles.container}>
             <UploadForm darkMode={darkMode}/>

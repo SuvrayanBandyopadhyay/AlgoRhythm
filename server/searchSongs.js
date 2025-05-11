@@ -9,9 +9,12 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise()
 
-async function searchSongs(query, offset) {
+async function searchSongs(query, offset,all) {
     const limit = 20;
 
+    
+    if(!all)
+    {
     const [rows] = await pool.query(`
         SELECT users.username, songs.*
         FROM users JOIN user_song_authorship JOIN songs
@@ -20,9 +23,18 @@ async function searchSongs(query, offset) {
         LIMIT ${limit}
         OFFSET ?
     `, [query, offset * limit]);
-    
-    console.log(rows)
     return rows;
+    }
+    else
+    {
+        const [rows] = await pool.query(`
+        SELECT users.username, songs.*
+        FROM users JOIN user_song_authorship JOIN songs
+        ON users.id = user_song_authorship.user_id AND user_song_authorship.song_id = songs.id
+        ORDER BY songs.title ASC
+    `, [offset * limit]);
+    return rows;
+    }
 }
 
 module.exports = searchSongs;

@@ -148,7 +148,8 @@ function UploadForm({ darkMode})
                 type="file" 
                 accept="image/*"
                 name="imageFile" 
-                onChange={handleImageChange} 
+                onChange={handleImageChange}
+                required 
                 style={{display:'none'}}/>
             <div style={fileText}>{filename1}</div>
             </label>
@@ -176,7 +177,8 @@ function UploadForm({ darkMode})
             </div>        
         </form>
         {/*Failed login check*/}
-        {filename2=="No File Chosen"?<div style={error}>Enter Filename</div>:<></>}
+        {filename1=="No File Chosen"?<div style={error}>Select Image</div>:<></>}
+        {filename2=="No File Chosen"?<div style={error}>Select Audio</div>:<></>}
         {failed ? <div style={error}>Invalid Title or Path</div>:<></>}
     </div>
     </div>
