@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
 import SongInfo from "../Components/SongInfo/SongInfo";
+import CommentBox from "../Components/CommentSection/CommentBox";
+import CommentSection from "../Components/CommentSection/CommentSection";
 
 export default function Song({darkMode})
 {
@@ -9,7 +11,13 @@ export default function Song({darkMode})
     
   
     return(
+        <>
         <SongInfo darkMode={darkMode}></SongInfo>
+        <div style={{height:"200px"}}></div>
+        <CommentBox darkMode={darkMode}></CommentBox>
+        <CommentSection></CommentSection>
+       
+        </>
     );
 
 }

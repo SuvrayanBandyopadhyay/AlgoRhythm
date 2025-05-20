@@ -6,6 +6,7 @@ const path = require("path");
 const dotenv = require('dotenv');
 const session = require("express-session");
 const fs = require('fs').promises;
+const mongo = require('mongodb');
 
 
 const searchSongs = require("./searchSongs");
@@ -18,6 +19,8 @@ const getSongInfo = require("./getSongInfo");
 const getPopularItems = require("./getPopular");
 const getAccountInfo = require("./getAccountInfo");
 const getAccountSongs = require("./getAccountSongs");
+const addComment = require("./addComment")
+const getComments = require("./getComments")
 
 
 dotenv.config();
@@ -228,6 +231,23 @@ app.get('/gettrending', async (req, res) => {
     });
 });
 
+//Get comments
+app.get('/getcomments', async (req, res) => {
+    const i = req.query.i;
+    const id = req.query.id;
+    if (!i) {
+        return res.status(400).json({ error: 'Missing search query' });
+    }
+
+    const data = await getComments(id,i);
+ 
+
+    res.json({
+        items: data.result,
+        hasAll: data.hasAll
+    })
+});
+
 
 //Get Popular
 app.get('/getpopular', async (req, res) => {
@@ -334,6 +354,21 @@ app.post('/songupload', upload.fields([
 
     }
 });
+
+// Get song Comments
+app.post('/comment_in', upload.none(),async (req, res) => {
+    try{
+        var e = await addComment(req.body.songId,"Jane",req.body.comment);
+        console.log(e);
+        
+    }
+    catch ( error ){
+        console.log(error);
+    }
+
+    res.json({ success: true, message: "Comment " });
+});
+
 
 //Get song info
 app.get('/song/:id',async (req,res)=>
