@@ -12,7 +12,7 @@ password hashing to prevent data theft.
 
 ## Features: 
 ### User Interface: - 
-<img width="476" alt="image" src="https://github.com/user-attachments/assets/d95f6171-9839-478e-8328-ef3f7f9fc74e" />
+<img width="475" alt="image" src="https://github.com/user-attachments/assets/d95f6171-9839-478e-8328-ef3f7f9fc74e" />
 
 To ensure an enjoyable experience for our users, we have developed a clean, intuitive, and 
 easy-to-use user interface. This thoughtfully designed interface allows users to effortlessly 
